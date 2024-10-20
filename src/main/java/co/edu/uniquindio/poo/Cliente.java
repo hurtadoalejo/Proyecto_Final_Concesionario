@@ -14,7 +14,7 @@ public class Cliente extends Persona{
 
     /**
      * Metodo para obtener la informacion del cliente
-     * @return
+     * @return Informacion del cliente
      */
     @Override
     public String toString() {

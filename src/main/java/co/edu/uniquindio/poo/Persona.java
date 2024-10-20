@@ -1,9 +1,7 @@
 package co.edu.uniquindio.poo;
 
 public class Persona {
-    private String nombre;
-    private String identificacion;
-    private String correo;
+    private String nombre, identificacion, correo;
     
     /**
      * Metodo constructor de la clase Persona
@@ -63,7 +61,7 @@ public class Persona {
 
     /**
      * Metodo para obtener la informacion de la persona
-     * @return
+     * @return Informacion de la persona
      */
     @Override
     public String toString() {
