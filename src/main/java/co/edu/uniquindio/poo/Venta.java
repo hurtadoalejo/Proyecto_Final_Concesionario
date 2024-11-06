@@ -16,7 +16,7 @@ public class Venta {
      * @param empleado Empleado de la venta a crear
      * @param cliente Cliente de la venta a crear
      */
-    public Compra_venta(int codigo, Empleado empleado, Cliente cliente) {
+    public Venta(int codigo, Empleado empleado, Cliente cliente) {
         this.codigo = codigo;
         this.empleado = empleado;
         this.cliente = cliente;
@@ -30,7 +30,7 @@ public class Venta {
      */
     public double calcularTotal(){
         double total = 0;
-        for (Detalle_compra_venta detalleTemporal : listaDetallesVenta) {
+        for (Detalle_venta detalleTemporal : listaDetallesVenta) {
             total += detalleTemporal.getSubtotal();
         }
         return total;

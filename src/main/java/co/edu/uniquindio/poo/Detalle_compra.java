@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo;
 
-public class Detalle_compra_venta {
+public class Detalle_compra {
     private Vehiculo vehiculo;
     private double precioVehiculo, subtotal;
     private Compra compra;
@@ -18,6 +18,10 @@ public class Detalle_compra_venta {
         this.subtotal = calcularSubtotal();
     }
 
+    /**
+     * Metodo para calcular el total del detalle de compra
+     * @return Subtotal del detalle de compra creado
+     */ 
     public double calcularSubtotal(){
         double subtotal = precioVehiculo;
         return subtotal;
@@ -81,13 +85,4 @@ public class Detalle_compra_venta {
         this.subtotal = subtotal;
     }
 
-    /**
-     * Metodo para obtener la informacion del detalle de compra
-     * @return Informacion del detalle de compra
-     */
-    @Override
-    public String toString() {
-        String info = "";
-        return info;
-    }
 }
