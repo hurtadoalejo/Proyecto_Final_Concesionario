@@ -1,27 +1,28 @@
 package co.edu.uniquindio.poo;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Venta {
     private int codigo;
     private double totalVenta;
     private Empleado empleado;
     private Cliente cliente;
-    private List<Detalle_venta> listaDetallesVenta;
+    private Vehiculo vehiculo;
+    private double precioVehiculo;
 
     /**
      * Metodo constructor de la clase venta
      * @param codigo Codigo de la venta a crear
      * @param empleado Empleado de la venta a crear
      * @param cliente Cliente de la venta a crear
+     * @param vehiculo Vehiculo de la venta a crear
+     * @param precioVehiculo Precio del vehiculo de la venta a crear
      */
-    public Venta(int codigo, Empleado empleado, Cliente cliente) {
+    public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo) {
         this.codigo = codigo;
+        this.totalVenta = calcularTotal();
         this.empleado = empleado;
         this.cliente = cliente;
-        this.totalVenta = 0;
-        this.listaDetallesVenta = new LinkedList<>();
+        this.vehiculo = vehiculo;
+        this.precioVehiculo = precioVehiculo;
     }
 
     /**
@@ -29,11 +30,7 @@ public class Venta {
      * @return Total de la venta
      */
     public double calcularTotal(){
-        double total = 0;
-        for (Detalle_venta detalleTemporal : listaDetallesVenta) {
-            total += detalleTemporal.getSubtotal();
-        }
-        return total;
+        totalVenta = precioVehiculo;
     }
 
     /**
@@ -65,11 +62,18 @@ public class Venta {
         return totalVenta;
     }
     /**
-     * Metodo para obtener la lista de detalles de venta
-     * @return Lista de detalles de venta
+     * Metodo para obtener el vehiculo de la venta
+     * @return Vehiculo de la venta
      */
-    public List<Detalle_venta> getListaDetallesVenta() {
-        return listaDetallesVenta;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+    /**
+     * Metodo para obtener el precio del vehiculo de la venta
+     * @return Precio del vehiculo de la venta
+     */
+    public double getPrecioVehiculo() {
+        return precioVehiculo;
     }
 
     /**
@@ -101,10 +105,18 @@ public class Venta {
         this.totalVenta = totalVenta;
     }
     /**
-     * Metodo para modificar la lista de detalles de venta
-     * @param listaDetallesCompraVenta Nueva lista de detalles de venta
+     * Metodo para modificar el vehiculo de la venta
+     * @param vehiculo Nuevo vehiculo de la venta
      */
-    public void setListaDetallesVenta(List<Detalle_venta> listaDetallesVenta) {
-        this.listaDetallesVenta = listaDetallesVenta;
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
+    /**
+     * Metodo para modificar el precio del vehiculo de la venta
+     * @param precioVehiculo Nuevo precio del vehiculo de la venta
+     */
+    public void setPrecioVehiculo(double precioVehiculo) {
+        this.precioVehiculo = precioVehiculo;
+    }
+
 }
