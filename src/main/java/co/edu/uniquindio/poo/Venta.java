@@ -14,23 +14,24 @@ public class Venta {
      * @param empleado Empleado de la venta a crear
      * @param cliente Cliente de la venta a crear
      * @param vehiculo Vehiculo de la venta a crear
-     * @param precioVehiculo Precio del vehiculo de la venta a crear
+     * @param precioVenta Precio del vehiculo de la venta a crear
      */
     public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo) {
         this.codigo = codigo;
-        this.totalVenta = calcularTotal();
+        this.precioVehiculo = precioVehiculo;
         this.empleado = empleado;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
-        this.precioVehiculo = precioVehiculo;
+        this.totalVenta = calcularTotalVenta();
     }
 
     /**
      * Metodo para calcular el total de la venta
-     * @return Total de la venta
+     * @return Costo total de la venta
      */
-    public double calcularTotal(){
-        totalVenta = precioVehiculo;
+    public double calcularTotalVenta(){
+        double costoTotal = precioVehiculo;
+        return costoTotal;
     }
 
     /**

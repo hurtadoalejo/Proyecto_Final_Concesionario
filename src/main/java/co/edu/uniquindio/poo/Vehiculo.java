@@ -6,6 +6,7 @@ public class Vehiculo {
     private int modelo, cantidadCambios;
     private double velocidadMax, cilindraje;
     private Tipo_transmision tipoTransmision;
+    private Tipo_uso tipoUso;
 
     /**
      * Metodo constructor de la clase Vehiculo
@@ -17,9 +18,10 @@ public class Vehiculo {
      * @param velocidadMax Velocidad maxima del vehiculo a crear
      * @param cilindraje Cilindraje del vehiculo a crear
      * @param tipoTransmision Tipo de transmision del vehiculo a crear
+     * @param tipoUso Tipo de uso del vehiculo a crear
      */
     public Vehiculo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios,
-            double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision) {
+            double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
         this.placa = placa;
         this.marca = marca;
         this.estadoVehiculo = estadoVehiculo;
@@ -28,6 +30,7 @@ public class Vehiculo {
         this.velocidadMax = velocidadMax;
         this.cilindraje = cilindraje;
         this.tipoTransmision = tipoTransmision;
+        this.tipoUso = tipoUso;
     }
 
     /**
@@ -86,7 +89,14 @@ public class Vehiculo {
     public Tipo_transmision getTipoTransmision() {
         return tipoTransmision;
     }
-    
+    /**
+     * Metodo para obtener el tipo de uso del vehiculo
+     * @return Tipo de uso del vehiculo
+     */
+    public Tipo_uso getTipoUso() {
+        return tipoUso;
+    }
+
     /**
      * Metodo para modificar la placa del vehiculo
      * @param placa Nueva placa del vehiculo
@@ -143,15 +153,12 @@ public class Vehiculo {
     public void setTipoTransmision(Tipo_transmision tipoTransmision) {
         this.tipoTransmision = tipoTransmision;
     }
-
-
     /**
-     * Metodo para obtener la informacion del vehiculo
-     * @return Informacion del vehiculo
+     * Metodo para modificar el tipo de uso del vehiculo
+     * @param tipoUso Nuevo tipo de uso del vehiculo
      */
-    @Override
-    public String toString() {
-        String info = "";
-        return info;
+    public void setTipoUso(Tipo_uso tipoUso) {
+        this.tipoUso = tipoUso;
     }
+
 }

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo;
 
 public class Sede {
+    private int codigo;
     private String direccion;
     private String ciudad;
     private double dineroGenerado;
@@ -9,10 +10,12 @@ public class Sede {
     
     /**
      * Metodo constructor de la clase Sede
+     * @param codigo Codigo de la sede a crear
      * @param direccion Direccion de la sede a crear
      * @param ciudad Ciudad de la sede a crear
      */
-    public Sede(String direccion, String ciudad) {
+    public Sede(int codigo, String direccion, String ciudad) {
+        this.codigo = codigo;
         this.direccion = direccion;
         this.ciudad = ciudad;
         this.dineroGenerado = 0;
@@ -20,6 +23,13 @@ public class Sede {
         this.dineroGanadoNeto = 0;
     }
 
+    /**
+     * Metodo para obtener el codigo de la sede
+     * @return Codigo de la sede
+     */
+    public int getCodigo() {
+        return codigo;
+    }
     /**
      * Metodo para obtener la direccion de la sede
      * @return Direccion de la sede
@@ -57,6 +67,13 @@ public class Sede {
     }
 
     /**
+     * Metodo para modificar el codigo de la sede
+     * @param codigo Nuevo codigo de la sede
+     */
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    /**
      * Metodo para modificar la direccion de la sede
      * @param direccion Nueva direccion de la sede
      */
@@ -70,6 +87,7 @@ public class Sede {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+    
     /**
      * Metodo para modificar el dinero generado de la sede
      * @param dineroGenerado Nuevo dinero generado de la sede
@@ -92,13 +110,4 @@ public class Sede {
         this.dineroGanadoNeto = dineroGanadoNeto;
     }
 
-    /**
-     * Metodo para obtener la informacion de la sede
-     * @return Informacion de la sede
-     */
-    @Override
-    public String toString() {
-        String info = "";
-        return info;
-    }
 }

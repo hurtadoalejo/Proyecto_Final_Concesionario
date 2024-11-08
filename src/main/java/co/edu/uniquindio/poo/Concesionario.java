@@ -46,14 +46,36 @@ public class Concesionario {
      * Metodo para eliminar una sede de la lista de sedes del concesionario
      * @param direccion Direccion de la sede a eliminar
      * @param ciudad Ciudad de la sede a eliminar
+     * @return Booleano sobre si se pudo eliminar la sede o no
      */
-    public void eliminarSede(String direccion, String ciudad){
+    public boolean eliminarSede(String direccion, String ciudad){
+        boolean accion = false;
         for (Sede sede : listaSedes) {
             if (sede.getDireccion().equals(direccion) && sede.getCiudad().equals(ciudad)) {
                 listaSedes.remove(sede);
+                accion = true;
                 break;
             }
         }
+        return accion;
+    }
+    /**
+     * Metodo para actualizar los datos de una sede si corresponde a un codigo entregado
+     * @param codigo Codigo de la sede a verificar
+     * @param actualizado Sede con los datos nuevos
+     * @return Booleanos sobre si se pudo actualizar o no
+     */
+    public boolean actualizarSede(int codigo, Sede actualizado) {
+        boolean accion = false;
+        for (Sede sede : listaSedes) {
+            if (sede.getCodigo() == codigo) {
+                sede.setDireccion(actualizado.getDireccion());
+                sede.setCiudad(actualizado.getCiudad());
+                accion = true;
+                break;
+            }
+        }
+        return accion;
     }
 
     /**
