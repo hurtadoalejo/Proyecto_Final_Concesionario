@@ -21,21 +21,38 @@ public class Vehiculo_hibrido extends Vehiculo{
     public Vehiculo_hibrido(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero) {
         super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
         this.esEnchufable = esEnchufable;
-        this.esHibridoLigero = esHibridoLigero;
+        this.esHibridoLigero = determinarHibridoLigero(esEnchufable, esHibridoLigero);
+    }
+
+    /**
+     * Metodo para determinar si un vehiculo es hibrido ligero o no determinado con si es enchufable o no
+     * @param esEnchufable Booleano sobre si el vehiculo es enchufable o no
+     * @param esHibridoLigero Booleano sobre si el vehiculo es hibrido ligero o no dado por el usuario
+     * @return Booleano sobre si el vehiculo es verdaderamente hibrido ligero o no
+     */
+    public boolean determinarHibridoLigero(boolean esEnchufable, boolean esHibridoLigero){
+        boolean esHibridoLigeroTemporal;
+        if (esEnchufable) {
+            esHibridoLigeroTemporal = esHibridoLigero;
+        }
+        else{
+            esHibridoLigeroTemporal = false;
+        }
+        return esHibridoLigeroTemporal;
     }
 
     /**
      * Metodo para obtener si el vehiculo hibrido es enchufable o no
      * @return Booleano sobre si el vehiculo hibrido es enchufable o no
      */
-    public boolean getEsEnchufable() {
+    public boolean isEsEnchufable() {
         return esEnchufable;
     }
     /**
      * Metodo para obtener si el vehiculo hibrido es ligero o no
      * @return Booleano sobre si el vehiculo hibrido es ligero o no
      */
-    public boolean getEsHibridoLigero() {
+    public boolean isEsHibridoLigero() {
         return esHibridoLigero;
     }
 
