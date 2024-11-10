@@ -6,7 +6,7 @@ public class Sedan extends Vehiculo_hibrido{
     private boolean tieneAireAcondicionado, tieneCamaraReversa, tieneVelocidadCrucero, tieneABS, tieneSensorColision, tieneSensorTraficoCruzado, tieneAsistentePermanenciaCarril;
     
     /**
-     * 
+     * Metodo constructor de la clase Sedan
      * @param placa Placa de la sedan a crear
      * @param marca Marca de la sedan a crear
      * @param estadoVehiculo Estado de la sedan a crear
