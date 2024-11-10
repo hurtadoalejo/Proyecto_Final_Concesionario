@@ -124,39 +124,79 @@ public class Sedan extends Vehiculo_hibrido{
     }
 
     /**
-     * 
-     * @param numPasajeros
+     * Metodo para modificar el numero de pasajeros del sedan
+     * @param numPasajeros Nuevo numero de pasajeros del sedan
      */
     public void setNumPasajeros(int numPasajeros) {
         this.numPasajeros = numPasajeros;
     }
+    /**
+     * Metodo para modificar el numero de puertas del sedan
+     * @param numPuertas Nuevo numero de puertas del sedan
+    */
     public void setNumPuertas(int numPuertas) {
         this.numPuertas = numPuertas;
     }
+    /**
+     * Metodo para modificar el numero de bolsas de aire del sedan
+     * @param numBolsasAire Nuevo numero de bolsas de aire del sedan
+     */
     public void setNumBolsasAire(int numBolsasAire) {
         this.numBolsasAire = numBolsasAire;
     }
+    /**
+     * Metodo para modificar la capacidad del maletero del sedan
+     * @param capacidadMaletero Nueva capacidad del maletero del sedan
+     */
     public void setCapacidadMaletero(double capacidadMaletero) {
         this.capacidadMaletero = capacidadMaletero;
     }
+    /**
+     * Metodo para modificar si el sedan tiene aire acondicionado o no
+     * @param tieneAireAcondicionado Nuevo booleano sobre si el sedan tiene aire acondicionado o no
+     */
     public void setTieneAireAcondicionado(boolean tieneAireAcondicionado) {
         this.tieneAireAcondicionado = tieneAireAcondicionado;
     }
+    /**
+     * Metodo para modificar si el sedan tiene camara de reversa o no
+     * @param tieneCamaraReversa Nuevo booleano sobre si el sedan tiene camara de reversa o no
+     */
     public void setTieneCamaraReversa(boolean tieneCamaraReversa) {
         this.tieneCamaraReversa = tieneCamaraReversa;
     }
+    /**
+     * Metodo para modificar si el sedan tiene velocidad de crucero o no
+     * @param tieneVelocidadCrucero Nuevo booleano sobre si el sedan tiene velocidad de crucero o no
+     */
     public void setTieneVelocidadCrucero(boolean tieneVelocidadCrucero) {
         this.tieneVelocidadCrucero = tieneVelocidadCrucero;
     }
+    /**
+     * Metodo para modificar si el sedan tiene abs o no
+     * @param tieneABS Nuevo booleano sobre si el sedan tiene abs o no
+     */
     public void setTieneABS(boolean tieneABS) {
         this.tieneABS = tieneABS;
     }
+    /**
+     * Metodo para modificar si el sedan tiene sensor de colision o no
+     * @param tieneSensorColision Nuevo booleano sobre si el sedan tiene sensor de colision o no
+     */
     public void setTieneSensorColision(boolean tieneSensorColision) {
         this.tieneSensorColision = tieneSensorColision;
     }
+    /**
+     * Metodo para modificar si el sedan tiene sensor de trafico cruzado o no
+     * @param tieneSensorTraficoCruzado Nuevo booleano sobre si el sedan tiene sensor de trafico cruzado o no
+     */
     public void setTieneSensorTraficoCruzado(boolean tieneSensorTraficoCruzado) {
         this.tieneSensorTraficoCruzado = tieneSensorTraficoCruzado;
     }
+    /**
+     * Metodo para modificar si el sedan tiene asistente de permanencia de carril o no
+     * @param tieneAsistentePermanenciaCarril Nuevo booleano sobre si el sedan tiene asistente de permanencia de carril o no
+     */
     public void setTieneAsistentePermanenciaCarril(boolean tieneAsistentePermanenciaCarril) {
         this.tieneAsistentePermanenciaCarril = tieneAsistentePermanenciaCarril;
     }
