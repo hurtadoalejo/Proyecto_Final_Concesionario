@@ -20,8 +20,7 @@ public class Vehiculo {
      * @param tipoTransmision Tipo de transmision del vehiculo a crear
      * @param tipoUso Tipo de uso del vehiculo a crear
      */
-    public Vehiculo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios,
-            double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
+    public Vehiculo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
         this.placa = placa;
         this.marca = marca;
         this.estadoVehiculo = estadoVehiculo;

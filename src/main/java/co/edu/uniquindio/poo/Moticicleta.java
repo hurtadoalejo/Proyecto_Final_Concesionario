@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo;
 
-public class Moto extends Vehiculo_gasolina{
+public class Moticicleta extends Vehiculo_gasolina{
     
     /**
      * Metodo constructor de la clase vehiculo Moto
@@ -14,7 +14,7 @@ public class Moto extends Vehiculo_gasolina{
      * @param tipoTransmision Tipo de transmision de la moto a crear
      * @param tipoUso Tipo de uso de la moto a crear
      */
-    public Moto(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
+    public Moticicleta(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
         super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
     }
 }
