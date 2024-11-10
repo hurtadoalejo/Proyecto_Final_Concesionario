@@ -59,34 +59,74 @@ public class Sedan extends Vehiculo_hibrido{
     public int getNumPuertas() {
         return numPuertas;
     }
+    /**
+     * Metodo para obtener el numero de bolsas de aire del sedan
+     * @return Numero de bolsas de aire del sedan
+     */
     public int getNumBolsasAire() {
         return numBolsasAire;
     }
+    /**
+     * Metodo para obtener la capacidad del maletero del sedan
+     * @return Capacidad del maletero del sedan
+     */
     public double getCapacidadMaletero() {
         return capacidadMaletero;
     }
+    /**
+     * Metodo para saber si el sedan tiene aire acondicionado o no
+     * @return Booleano sobre si el sedan tiene aire acondicionado o no
+     */
     public boolean isTieneAireAcondicionado() {
         return tieneAireAcondicionado;
     }
+    /**
+     * Metodo para saber si el sedan tiene camara de reversa o no
+     * @return Booleano sobre si el sedan tiene camara de reversa o no
+     */
     public boolean isTieneCamaraReversa() {
         return tieneCamaraReversa;
     }
+    /**
+     * Metodo para saber si el sedan tiene velocidad de crucero o no
+     * @return Booleano sobre si el sedan tiene velocidad de crucero o no
+     */
     public boolean isTieneVelocidadCrucero() {
         return tieneVelocidadCrucero;
     }
+    /**
+     * Metodo para saber si el sedan tiene abs o no
+     * @return Booleano sobre si el sedan tiene abs o no
+     */
     public boolean isTieneABS() {
         return tieneABS;
     }
+    /**
+     * Metodo para saber si el sedan tiene sensor de colision o no
+     * @return Booleano sobre si el sedan tiene sensor de colision o no
+     */
     public boolean isTieneSensorColision() {
         return tieneSensorColision;
     }
+    /**
+     * Metodo para saber si el sedan tiene sensor de trafico cruzado o no
+     * @return Booleano sobre si el sedan tiene sensor de trafico cruzado o no
+     */
     public boolean isTieneSensorTraficoCruzado() {
         return tieneSensorTraficoCruzado;
     }
+    /**
+     * Metodo para saber si el sedan tiene asistente de permanencia de carril o no
+     * @return Booleano sobre si el sedan tiene asistente de permanencia de carril o no
+     */
     public boolean isTieneAsistentePermanenciaCarril() {
         return tieneAsistentePermanenciaCarril;
     }
 
+    /**
+     * 
+     * @param numPasajeros
+     */
     public void setNumPasajeros(int numPasajeros) {
         this.numPasajeros = numPasajeros;
     }
