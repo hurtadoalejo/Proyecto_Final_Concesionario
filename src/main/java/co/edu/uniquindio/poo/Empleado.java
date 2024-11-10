@@ -7,6 +7,7 @@ public class Empleado extends Persona {
     private double salarioBase;
     private Estado_empleado estadoEmpleado;
     private List<Venta> listaAlquileres;
+    
 
     public Empleado(String nombre, String identificacion, String correo, double salarioBase, Estado_empleado estadoEmpleado) {
         super(nombre, identificacion, correo);
