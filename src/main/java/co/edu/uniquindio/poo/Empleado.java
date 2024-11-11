@@ -313,7 +313,8 @@ public class Empleado extends Persona{
         boolean accion = false;
         if (isAutenticado() && vehiculoDado.getSede().equals(sede)) {
             for (int a = 0; a < concesionario.getListaVehiculos().size(); a++) {
-                if (concesionario.getListaVehiculos().get(a).getPlaca().equals(placa)) {
+                Vehiculo vehiculo = concesionario.getListaVehiculos().get(a);
+                if (vehiculo.getPlaca().equals(placa) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
                     accion = true;
                     concesionario.getListaVehiculos().set(a, vehiculoDado);
                     sede.getListaVehiculos().set(a, vehiculoDado);
@@ -343,10 +344,10 @@ public class Empleado extends Persona{
         return accion;
     }
     /**
-     * Metodo para cambiar la sede de un vehiculo
+     * Metodo para cambiar la sede de un vehiculo de la lista de vehiculos de la sede del empleado
      * @param codigo Codigo de la nueva sede del vehiculo
-     * @param vehiculo 
-     * @return
+     * @param placa Placa del vehiculo que se busca cambiar de sede
+     * @return Booleano sobre si se pudo cambiar de sede el vehiculo o no
      */
     public boolean cambiarSedeVehiculo(int codigo, String placa){
         boolean accion = false;
@@ -357,11 +358,64 @@ public class Empleado extends Persona{
                         if (vehiculo.getPlaca().equals(placa) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
                             sedeCambiar.getListaVehiculos().add(vehiculo);
                             sede.getListaVehiculos().remove(vehiculo);
+                            accion = true;
                             break;
                         }
                     }
                 }
             }   
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para agregar una venta a la lista de ventas de la sede del empleado
+     * @param venta Venta que se busca agregar
+     * @return Booleano sobre si se pudo agregar la venta o no
+     */
+    public boolean agregarVenta(Venta venta){
+        boolean accion = false;
+        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede)) {
+            sede.getListaVentas().add(venta);
+            venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
+            sede.aumentarDineroGastado(venta.getTotalVenta());
+            accion = true;
+        }
+        return accion;
+    }
+    /**
+     * Metodo para verificar si hay una venta en la lista de ventas de la sede que tenga el mismo codigo que uno dado
+     * @param codigo Codigo a verificar
+     * @return Booleano sobre si existe una venta que cumpla con esa condición o no
+     */
+    public boolean verificarVenta(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Venta venta : sede.getListaVentas()) {
+                if (venta.getCodigo() == codigo) {
+                    accion = true;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para eliminar la venta de la lista de ventas de la sede que tenga el mismo codigo que uno dado
+     * @param codigo Codigo de la venta a eliminar
+     * @return Booleano sobre si se pudo eliminar la venta o no
+     */
+    public boolean eliminarVenta(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Venta venta : sede.getListaVentas()) {
+                if (venta.getCodigo() == codigo) {
+                    concesionario.getListaVehiculos().add(venta.getVehiculo());
+                    venta.getSede().getListaVehiculos().add(venta.getVehiculo());
+                    venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
+                    sede.aumentarDineroGastado(venta.getTotalVenta()*-1);
+                    accion = true;
+                }
+            }
         }
         return accion;
     }

@@ -10,6 +10,7 @@ public class Venta {
     private Vehiculo vehiculo;
     private double precioVehiculo;
     private LocalDate fechaVenta;
+    private Sede sede;
 
     /**
      * Metodo constructor de la clase venta
@@ -19,8 +20,9 @@ public class Venta {
      * @param vehiculo Vehiculo de la venta a crear
      * @param precioVenta Precio del vehiculo de la venta a crear
      * @param fechaVenta Fecha de venta de la venta a crear
+     * @param sede Sede de la venta a crear
      */
-    public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo, LocalDate fechaVenta) {
+    public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo, LocalDate fechaVenta, Sede sede) {
         this.codigo = codigo;
         this.precioVehiculo = precioVehiculo;
         this.empleado = empleado;
@@ -28,6 +30,7 @@ public class Venta {
         this.vehiculo = vehiculo;
         this.totalVenta = calcularTotalVenta();
         this.fechaVenta = fechaVenta;
+        this.sede = sede;
     }
 
     /**
@@ -88,6 +91,13 @@ public class Venta {
     public LocalDate getFechaVenta() {
         return fechaVenta;
     }
+    /**
+     * Metodo para obtener la sede de la venta
+     * @return Sede de la venta
+     */
+    public Sede getSede() {
+        return sede;
+    }
 
     /**
      * Metodo para modificar el codigo de la venta
@@ -137,5 +147,12 @@ public class Venta {
      */
     public void setFechaVenta(LocalDate fechaVenta) {
         this.fechaVenta = fechaVenta;
+    }
+    /**
+     * Metodo para modificar la sede de la venta
+     * @param sede Nueva sede de la venta
+     */
+    public void setSede(Sede sede) {
+        this.sede = sede;
     }
 }
