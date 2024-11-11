@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo;
 
+import java.time.LocalDate;
+
 public class Venta {
     private int codigo;
     private double totalVenta;
@@ -7,6 +9,7 @@ public class Venta {
     private Cliente cliente;
     private Vehiculo vehiculo;
     private double precioVehiculo;
+    private LocalDate fechaVenta;
 
     /**
      * Metodo constructor de la clase venta
@@ -15,14 +18,16 @@ public class Venta {
      * @param cliente Cliente de la venta a crear
      * @param vehiculo Vehiculo de la venta a crear
      * @param precioVenta Precio del vehiculo de la venta a crear
+     * @param fechaVenta Fecha de venta de la venta a crear
      */
-    public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo) {
+    public Venta(int codigo, Empleado empleado, Cliente cliente, Vehiculo vehiculo, double precioVehiculo, LocalDate fechaVenta) {
         this.codigo = codigo;
         this.precioVehiculo = precioVehiculo;
         this.empleado = empleado;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
         this.totalVenta = calcularTotalVenta();
+        this.fechaVenta = fechaVenta;
     }
 
     /**
@@ -76,6 +81,13 @@ public class Venta {
     public double getPrecioVehiculo() {
         return precioVehiculo;
     }
+    /**
+     * Metodo para obtener la fecha de venta de la venta
+     * @return Fecha de venta de la venta
+     */
+    public LocalDate getFechaVenta() {
+        return fechaVenta;
+    }
 
     /**
      * Metodo para modificar el codigo de la venta
@@ -119,5 +131,11 @@ public class Venta {
     public void setPrecioVehiculo(double precioVehiculo) {
         this.precioVehiculo = precioVehiculo;
     }
-
+    /**
+     * Metodo para modificar la fecha de venta de la venta
+     * @param fechaVenta Nueva fecha de venta de la venta
+     */
+    public void setFechaVenta(LocalDate fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
 }

@@ -3,7 +3,7 @@ package co.edu.uniquindio.poo;
 public class Sede {
     private int codigo;
     private String direccion;
-    private String ciudad;
+    private Ciudad ciudad;
     private double dineroGenerado;
     private double dineroGastado;
     private double dineroGanadoNeto;
@@ -14,7 +14,7 @@ public class Sede {
      * @param direccion Direccion de la sede a crear
      * @param ciudad Ciudad de la sede a crear
      */
-    public Sede(int codigo, String direccion, String ciudad) {
+    public Sede(int codigo, String direccion, Ciudad ciudad) {
         this.codigo = codigo;
         this.direccion = direccion;
         this.ciudad = ciudad;
@@ -41,7 +41,7 @@ public class Sede {
      * Metodo para obtener la ciudad de la sede
      * @return Ciudad de la sede
      */
-    public String getCiudad() {
+    public Ciudad getCiudad() {
         return ciudad;
     }
     /**
@@ -84,7 +84,7 @@ public class Sede {
      * Metodo para modificar la ciudad de la sede
      * @param ciudad Nueva ciudad de la sede
      */
-    public void setCiudad(String ciudad) {
+    public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
     

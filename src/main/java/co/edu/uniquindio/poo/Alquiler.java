@@ -23,7 +23,7 @@ public class Alquiler {
      * @param precioPorDia Precio por dia del alquiler a crear
      * @param totalPrestamo Total del alquiler a crear
      */
-    public Alquiler(int codigo, Cliente cliente, Vehiculo vehiculo, Empleado empleado, LocalDate fechaAlquiler, double precioPorDia, double totalPrestamo){
+    public Alquiler(int codigo, Cliente cliente, Vehiculo vehiculo, Empleado empleado, LocalDate fechaAlquiler, double precioPorDia){
         this.codigo = codigo;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
