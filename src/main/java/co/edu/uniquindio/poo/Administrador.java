@@ -167,6 +167,12 @@ public class Administrador extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para actualizar un empleado que coincida con un numero de cedula
+     * @param cedula Cedula del empleado que se busca actualizar
+     * @param empleadoNuevo Empleado con los datos nuevos
+     * @return Booleanos sobre si se pudo o no actualizar el empleado
+     */
     public boolean actualizarEmpleado(String cedula, Empleado empleadoNuevo){
         boolean accion = false;
         for (Empleado empleado : concesionario.getListaEmpleados()) {
@@ -176,7 +182,7 @@ public class Administrador extends Persona{
                 empleado.setSalarioBase(empleadoNuevo.getSalarioBase());
                 empleado.setUsuario(empleadoNuevo.getUsuario());
                 empleado.setPassword(empleadoNuevo.getPassword());
-                if (!verificarNegociosCerradosEmpleado(empleado)) {
+                if (!verificarNegociosPendientesEmpleado(empleado)) {
                     empleado.setSede(empleadoNuevo.getSede());
                 }
                 accion = true;
@@ -185,7 +191,12 @@ public class Administrador extends Persona{
         }
         return accion;
     }
-    public boolean verificarNegociosCerradosEmpleado(Empleado empleado){
+    /**
+     * Metodo para verificar si un empleado tiene negocios pendientes en su sede
+     * @param empleado Empleado a verificar
+     * @return Booleano sobre si tiene o no negocios pendientes en su sede
+     */
+    public boolean verificarNegociosPendientesEmpleado(Empleado empleado){
         boolean accion = false;
         for (Compra compra : empleado.getListaCompras()) {
             if (!compra.isConcretada()) {
@@ -199,10 +210,15 @@ public class Administrador extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para eliminar un empleado de la lista de empleados de su sede y del concesionario
+     * @param identificacion Identificacion del empleado a eliminar
+     * @return Booleano sobre si se pudo eliminar o no el empleado
+     */
     public boolean eliminarEmpleado(String identificacion){
         boolean accion = false;
         for (Empleado empleado : concesionario.getListaEmpleados()) {
-            if (empleado.getIdentificacion().equals(identificacion) && !verificarNegociosCerradosEmpleado(empleado)) {
+            if (empleado.getIdentificacion().equals(identificacion) && !verificarNegociosPendientesEmpleado(empleado)) {
                 concesionario.getListaEmpleados().remove(empleado);
                 empleado.getSede().getListaEmpleados().remove(empleado);
             }
