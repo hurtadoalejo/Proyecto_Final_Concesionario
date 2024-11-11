@@ -15,7 +15,9 @@ public class App {
         concesionario.agregarSede(sede2);
         concesionario.agregarAdministrador(administrador);
         concesionario.agregarAdministrador(administrador2);
+        administrador.autenticar("alex", 555);
         administrador.agregarEmpleado(empleado);
+        administrador.cerrarSesion();
         Cliente cliente = new Cliente("Vero", "2502455", "vero@gmail.com");
         empleado.autenticar("alejohg", 25024);
         empleado.agregarCliente(cliente);
@@ -35,6 +37,6 @@ public class App {
         for (Vehiculo vehiculo : sede.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println(sede.getDineroGanadoNeto());
+        System.out.println(concesionario.getListaSedes().size());
     }
 }

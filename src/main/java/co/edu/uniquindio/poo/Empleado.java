@@ -213,7 +213,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarCliente(Cliente cliente) {
         boolean accion = false;
-        if (!verificarPersona(cliente.getIdentificacion()) && isAutenticado()) {
+        if (!verificarPersona(cliente.getIdentificacion()) && isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             concesionario.getListaClientes().add(cliente);
             accion = true;
         }
@@ -271,7 +271,7 @@ public class Empleado extends Persona{
      */
     public boolean actualizarCliente(String cedula, Cliente clienteNuevo) {
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Cliente cliente : concesionario.getListaClientes()) {
                 if (cliente.getIdentificacion().equals(cedula)) {
                     cliente.setNombre(clienteNuevo.getNombre());
@@ -290,7 +290,7 @@ public class Empleado extends Persona{
      */
     public boolean eliminarCliente(String cedula) {
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Cliente cliente : concesionario.getListaClientes()) {
                 if (cliente.getIdentificacion().equals(cedula)) {
                     concesionario.getListaClientes().remove(cliente);
@@ -309,7 +309,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarVehiculo(Vehiculo vehiculo){
         boolean accion = false;
-        if (isAutenticado() && !verificarVehiculo(vehiculo.getPlaca()) && vehiculo.getSede().equals(sede)) {
+        if (isAutenticado() && !verificarVehiculo(vehiculo.getPlaca()) && vehiculo.getSede().equals(sede) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             concesionario.getListaVehiculos().add(vehiculo);
             sede.getListaVehiculos().add(vehiculo);
         }
@@ -340,7 +340,7 @@ public class Empleado extends Persona{
      */
     public boolean actualizarVehiculo(String placa, Vehiculo vehiculoDado){
         boolean accion = false;
-        if (isAutenticado() && vehiculoDado.getSede().equals(sede)) {
+        if (isAutenticado() && vehiculoDado.getSede().equals(sede) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (int a = 0; a < concesionario.getListaVehiculos().size(); a++) {
                 Vehiculo vehiculo = concesionario.getListaVehiculos().get(a);
                 if (vehiculo.getPlaca().equals(placa) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
@@ -360,7 +360,7 @@ public class Empleado extends Persona{
      */
     public boolean eliminarVehiculo(String placa){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
                 if (vehiculo.getPlaca().equals(placa) && vehiculo.getSede().equals(sede) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
                     accion = true;
@@ -380,7 +380,7 @@ public class Empleado extends Persona{
      */
     public boolean cambiarSedeVehiculo(int codigo, String placa){
         boolean accion = false;
-        if (isAutenticado() && codigo != sede.getCodigo()) {
+        if (isAutenticado() && codigo != sede.getCodigo() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Sede sedeCambiar : concesionario.getListaSedes()) {
                 if (sedeCambiar.getCodigo() == codigo) {
                     for (Vehiculo vehiculo : sede.getListaVehiculos()) {
@@ -404,7 +404,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarVenta(Venta venta){
         boolean accion = false;
-        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede) && venta.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && verificarCliente(venta.getCliente().getIdentificacion())) {
+        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede) && venta.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && verificarCliente(venta.getCliente().getIdentificacion()) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             sede.getListaVentas().add(venta);
             venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
             sede.aumentarDineroGenerado(venta.getTotalVenta());
@@ -437,7 +437,7 @@ public class Empleado extends Persona{
      */
     public boolean eliminarVenta(int codigo){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Venta venta : sede.getListaVentas()) {
                 if (venta.getCodigo() == codigo && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
                     venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
@@ -459,7 +459,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarAlquiler(Alquiler alquiler){
         boolean accion = false;
-        if (isAutenticado() && !verificarAlquiler(alquiler.getCodigo()) && alquiler.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && alquiler.getSede().equals(sede) && alquiler.getVehiculo().getTipoUso().equals(Tipo_uso.ALQUILER) && verificarCliente(alquiler.getCliente().getIdentificacion())) {
+        if (isAutenticado() && !verificarAlquiler(alquiler.getCodigo()) && alquiler.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && alquiler.getSede().equals(sede) && alquiler.getVehiculo().getTipoUso().equals(Tipo_uso.ALQUILER) && verificarCliente(alquiler.getCliente().getIdentificacion()) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             sede.getListaAlquileres().add(alquiler);
             alquiler.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
             listaAlquileres.add(alquiler);
@@ -491,7 +491,7 @@ public class Empleado extends Persona{
      */
     public boolean eliminarAlquiler(int codigo){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Alquiler alquiler : listaAlquileres) {
                 if (alquiler.getCodigo() == codigo && alquiler.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
                     if (alquiler.getEstadoAlquiler().equals(Estado_alquiler.PAGADO)) {
@@ -519,7 +519,7 @@ public class Empleado extends Persona{
         boolean accion = false;
         if (isAutenticado()) {
             for (Alquiler alquiler : listaAlquileres) {
-                if (alquiler.getCodigo() == codigo && alquiler.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && alquiler.getEstadoAlquiler().equals(Estado_alquiler.PENDIENTE)) {
+                if (alquiler.getCodigo() == codigo && alquiler.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && alquiler.getEstadoAlquiler().equals(Estado_alquiler.PENDIENTE) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
                     LocalDate fechaAlquiler = alquiler.getFechaAlquiler();
                     if (fechaEntrega.isAfter(fechaAlquiler)) {
                         int diasPrestamo = (int) ChronoUnit.DAYS.between(fechaAlquiler, fechaEntrega);
@@ -544,11 +544,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarCompra(Compra compra){
         boolean accion = false;
-        if (verificarCliente(compra.getCliente().getIdentificacion())) {
-            System.out.println("Hola");
-        }
-
-        if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada() && compra.getSede().equals(sede) && verificarCliente(compra.getCliente().getIdentificacion())) {
+        if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada() && compra.getSede().equals(sede) && verificarCliente(compra.getCliente().getIdentificacion()) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             listaCompras.add(compra);
             sede.getListaCompras().add(compra);
         }
@@ -587,7 +583,7 @@ public class Empleado extends Persona{
      */
     public boolean eliminarCompra(int codigo){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             for (Compra compra : sede.getListaCompras()) {
                 if (compra.getCodigo() == codigo) {
                     if (compra.isConcretada()) {
@@ -622,7 +618,7 @@ public class Empleado extends Persona{
     public boolean concretarCompra(int codigo){
         boolean accion = false;
         for (Compra compraTemporal : sede.getListaCompras()) {
-            if (compraTemporal.getCodigo() == codigo && !compraTemporal.isConcretada()) {
+            if (compraTemporal.getCodigo() == codigo && !compraTemporal.isConcretada() && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
                 compraTemporal.setConcretada(true);
                 for (Detalle_compra detalleCompra : compraTemporal.getListaDetallesCompra()) {
                     Vehiculo vehiculo = detalleCompra.getVehiculo();

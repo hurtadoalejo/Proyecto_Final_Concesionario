@@ -133,7 +133,8 @@ public class Administrador extends Persona{
      */
     public boolean agregarEmpleado(Empleado empleado){
         boolean accion = false;
-        if (!verificarPersona(empleado.getIdentificacion())) {
+        if (!verificarPersona(empleado.getIdentificacion()) && isAutenticado()) {
+            empleado.setEstadoEmpleado(Estado_empleado.ACTIVO);
             concesionario.getListaEmpleados().add(empleado);
             sede.getListaEmpleados().add(empleado);
             accion = true;
@@ -176,7 +177,7 @@ public class Administrador extends Persona{
     public boolean actualizarEmpleado(String cedula, Empleado empleadoNuevo){
         boolean accion = false;
         for (Empleado empleado : concesionario.getListaEmpleados()) {
-            if (empleado.getIdentificacion().equals(cedula) && empleadoNuevo.getIdentificacion().equals(cedula)) {
+            if (empleado.getIdentificacion().equals(cedula) && empleadoNuevo.getIdentificacion().equals(cedula) && isAutenticado()) {
                 empleado.setNombre(empleadoNuevo.getNombre());
                 empleado.setCorreo(empleadoNuevo.getCorreo());
                 empleado.setSalarioBase(empleadoNuevo.getSalarioBase());
@@ -217,10 +218,13 @@ public class Administrador extends Persona{
      */
     public boolean eliminarEmpleado(String identificacion){
         boolean accion = false;
-        for (Empleado empleado : concesionario.getListaEmpleados()) {
-            if (empleado.getIdentificacion().equals(identificacion) && !verificarNegociosPendientesEmpleado(empleado)) {
-                concesionario.getListaEmpleados().remove(empleado);
-                empleado.getSede().getListaEmpleados().remove(empleado);
+        if (isAutenticado()) {
+            for (Empleado empleado : concesionario.getListaEmpleados()) {
+                if (empleado.getIdentificacion().equals(identificacion) && !verificarNegociosPendientesEmpleado(empleado)) {
+                    concesionario.getListaEmpleados().remove(empleado);
+                    empleado.getSede().getListaEmpleados().remove(empleado);
+                    empleado.setEstadoEmpleado(Estado_empleado.NO_ACTIVO);
+                }
             }
         }
         return accion;
