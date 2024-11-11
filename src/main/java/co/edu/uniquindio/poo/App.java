@@ -22,19 +22,18 @@ public class App {
         Venta venta = new Venta(2, empleado, cliente, camioneta, 500000, fecha, sede);
         empleado.agregarVenta(venta);
         empleado.eliminarVenta(2);
+        empleado.eliminarVehiculo("AHG");
         empleado.cerrarSesion(); 
-        System.out.println(sede.getDineroGastado());
         for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println("ESPACIO");
+        System.out.println("-------------");
         for (Vehiculo vehiculo : sede.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println("ESPACIO");
+        System.out.println("-------------");
         for (Vehiculo vehiculo : sede2.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println(concesionario.getListaSedes().size());
     }
 }

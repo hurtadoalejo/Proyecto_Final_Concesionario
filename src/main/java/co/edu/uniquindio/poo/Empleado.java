@@ -409,8 +409,6 @@ public class Empleado extends Persona{
         if (isAutenticado()) {
             for (Venta venta : sede.getListaVentas()) {
                 if (venta.getCodigo() == codigo) {
-                    concesionario.getListaVehiculos().add(venta.getVehiculo());
-                    venta.getSede().getListaVehiculos().add(venta.getVehiculo());
                     venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
                     sede.aumentarDineroGastado(venta.getTotalVenta()*-1);
                     accion = true;
