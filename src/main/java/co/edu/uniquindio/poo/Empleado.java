@@ -16,6 +16,7 @@ public class Empleado extends Persona{
     private List<Compra> listaCompras;
     private List<Alquiler> listaAlquileres;
     private Sede sede;
+    private String respuestaPregunta;
     
     /**
      * Metodo constructor de la clase Empleado
@@ -27,8 +28,9 @@ public class Empleado extends Persona{
      * @param usuario Usuario del empleado a crear
      * @param password Contraseña del empleado a crear
      * @param sede Sede del empleado a crear
+     * @param respuestaPregunta Respuesta de la pregunta de seguridad del empleado a crear
      */
-    public Empleado(String nombre, String identificacion, String correo, double salarioBase, String usuario, int password, Concesionario concesionario, Sede sede){
+    public Empleado(String nombre, String identificacion, String correo, double salarioBase, String usuario, int password, Concesionario concesionario, Sede sede, String respuestaPregunta){
         super(nombre, identificacion, correo);
         this.salarioBase = salarioBase;
         this.estadoEmpleado = Estado_empleado.NO_ACTIVO;
@@ -40,6 +42,7 @@ public class Empleado extends Persona{
         this.listaAlquileres = new LinkedList<>();
         this.concesionario = concesionario;
         this.sede = sede;
+        this.respuestaPregunta = respuestaPregunta;
     }
 
     /**
@@ -112,6 +115,13 @@ public class Empleado extends Persona{
     public Sede getSede() {
         return sede;
     }
+    /**
+     * Metodo para obtener la respuesta de la pregunta del empleado
+     * @return Respuesta de la pregunta del empleado
+     */
+    public String getRespuestaPregunta() {
+        return respuestaPregunta;
+    }
 
     /**
      * Metodo para modificar el salario base de un empleado
@@ -182,6 +192,13 @@ public class Empleado extends Persona{
      */
     public void setSede(Sede sede) {
         this.sede = sede;
+    }
+    /**
+     * Metodo para modificar la respuesta de la pregunta del empleado
+     * @param respuestaPregunta Nueva respuesta de la pregunta del empleado
+     */
+    public void setRespuestaPregunta(String respuestaPregunta) {
+        this.respuestaPregunta = respuestaPregunta;
     }
 
     /**
@@ -630,6 +647,23 @@ public class Empleado extends Persona{
             habilitarVehiculosCompra(compraTemporal.getListaDetallesCompra());
             sede.aumentarDineroGastado(compraTemporal.getTotalCompra());
             sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para recuperar las credenciales del empleado
+     * @param respuesta Respuesta dada a la pregunta de seguridad
+     * @param nuevoUsuario Nuevo usuario
+     * @param nuevaPassword Nueva contraseña
+     * @return Booleano sobre si se pudo recuperar las credenciales o no
+     */
+    public boolean recuperarCredenciales(String respuesta, String nuevoUsuario, int nuevaPassword){
+        boolean accion = false;
+        if (respuesta.equals(respuestaPregunta)) {
+            setUsuario(nuevoUsuario);
+            setPassword(nuevaPassword);
+            accion = true;
         }
         return accion;
     }

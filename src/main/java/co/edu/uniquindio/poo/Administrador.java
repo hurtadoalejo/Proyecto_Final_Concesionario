@@ -7,8 +7,21 @@ public class Administrador extends Persona{
     private int password;
     private boolean autenticado;
     private Concesionario concesionario;
+    private String respuestaPregunta;
 
-    public Administrador(String nombre, String identificacion, String correo, double salarioBase, Sede sede, String usuario, int password, Concesionario concesionario) {
+    /**
+     * Metodo constructor de la clase Administrador
+     * @param nombre Nombre del administrador a crear
+     * @param identificacion Identificacion del administrador a crear
+     * @param correo Correo del administrador a crear
+     * @param salarioBase Salario base del administrador a crear
+     * @param sede Sede del administrador a crear
+     * @param usuario Usuario del administrador a crear
+     * @param password Contraseña del administrador a crear
+     * @param concesionario Concesionario del administrador a crear
+     * @param respuestaPregunta Respuesta de la pregunta de seguridad del administrador a crear
+     */
+    public Administrador(String nombre, String identificacion, String correo, double salarioBase, Sede sede, String usuario, int password, Concesionario concesionario, String respuestaPregunta) {
         super(nombre, identificacion, correo);
         this.salarioBase = salarioBase;
         this.sede = sede;
@@ -16,6 +29,7 @@ public class Administrador extends Persona{
         this.password = password;
         this.autenticado = false;
         this.concesionario = concesionario;
+        this.respuestaPregunta = respuestaPregunta;
     }
 
     /**
@@ -60,6 +74,13 @@ public class Administrador extends Persona{
     public Concesionario getConcesionario() {
         return concesionario;
     }
+    /**
+     * Metodo para obtener la respuesta de la pregunta del administrador
+     * @return Respuesta de la pregunta del administrador
+     */
+    public String getRespuestaPregunta() {
+        return respuestaPregunta;
+    }
 
     /**
      * Metodo para modificar el salario base del administrador
@@ -102,6 +123,13 @@ public class Administrador extends Persona{
      */
     public void setConcesionario(Concesionario concesionario) {
         this.concesionario = concesionario;
+    }
+    /**
+     * Metodo para modificar la respuesta de la pregunta del administrador
+     * @param respuestaPregunta Nueva respuesta de la pregunta del administrador
+     */
+    public void setRespuestaPregunta(String respuestaPregunta) {
+        this.respuestaPregunta = respuestaPregunta;
     }
 
     /**
@@ -226,6 +254,23 @@ public class Administrador extends Persona{
                     empleado.setEstadoEmpleado(Estado_empleado.NO_ACTIVO);
                 }
             }
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para recuperar las credenciales del administrador
+     * @param respuesta Respuesta dada a la pregunta de seguridad
+     * @param nuevoUsuario Nuevo usuario
+     * @param nuevaPassword Nueva contraseña
+     * @return Booleano sobre si se pudo recuperar las credenciales o no
+     */
+    public boolean recuperarCredenciales(String respuesta, String nuevoUsuario, int nuevaPassword){
+        boolean accion = false;
+        if (respuesta.equals(respuestaPregunta)) {
+            setUsuario(nuevoUsuario);
+            setPassword(nuevaPassword);
+            accion = true;
         }
         return accion;
     }
