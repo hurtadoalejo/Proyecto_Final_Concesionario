@@ -275,8 +275,8 @@ public class Empleado extends Persona{
     
     /**
      * Metodo para agregar un vehiculo a la lista de vehiculos del concesionario y a la lista de vehiculos de la sede del empleado
-     * @param vehiculo 
-     * @return
+     * @param vehiculo Vehiculo que se busca agregar
+     * @return Booleano sobre si se pudo agregar el vehiculo o no
      */
     public boolean agregarVehiculo(Vehiculo vehiculo){
         boolean accion = false;
@@ -286,6 +286,11 @@ public class Empleado extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para verificar si una placa es igual a un vehiculo en la lista de vehiculos del concesionario
+     * @param placa Placa a verificar
+     * @return Booleano sobre si existe un vehiculo con estas condiciones o no
+     */
     public boolean verificarVehiculo(String placa){
         boolean accion = false;
         if (isAutenticado()) {
@@ -298,6 +303,12 @@ public class Empleado extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para actualizar un vehiculo de la lista de vehiculos del concesionario y la lista de vehiculos de la sede del empleado
+     * @param placa Placa a verificar
+     * @param vehiculoDado Vehiculo con los datos nuevos
+     * @return Booleano sobre si se pudo actualizar el vehiculo o no
+     */
     public boolean actualizarVehiculo(String placa, Vehiculo vehiculoDado){
         boolean accion = false;
         if (isAutenticado() && vehiculoDado.getSede().equals(sede)) {
@@ -312,17 +323,45 @@ public class Empleado extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para eliminar un vehiculo de la lista de vehiculos del concesionario y la lista de vehiculos de la sede del empleado dada una placa
+     * @param placa Placa a verificar
+     * @return Booleano sobre si se pudo eliminar el vehiculo o no
+     */
     public boolean eliminarVehiculo(String placa){
         boolean accion = false;
         if (isAutenticado()) {
             for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
-                if (vehiculo.getPlaca().equals(placa) && vehiculo.getSede().equals(sede)) {
+                if (vehiculo.getPlaca().equals(placa) && vehiculo.getSede().equals(sede) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
                     accion = true;
                     concesionario.getListaVehiculos().remove(vehiculo);
                     sede.getListaVehiculos().remove(vehiculo);
                     break;
                 }
             }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para cambiar la sede de un vehiculo
+     * @param codigo Codigo de la nueva sede del vehiculo
+     * @param vehiculo 
+     * @return
+     */
+    public boolean cambiarSedeVehiculo(int codigo, String placa){
+        boolean accion = false;
+        if (isAutenticado() && codigo != sede.getCodigo()) {
+            for (Sede sedeCambiar : concesionario.getListaSedes()) {
+                if (sedeCambiar.getCodigo() == codigo) {
+                    for (Vehiculo vehiculo : sede.getListaVehiculos()) {
+                        if (vehiculo.getPlaca().equals(placa) && vehiculo.getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
+                            sedeCambiar.getListaVehiculos().add(vehiculo);
+                            sede.getListaVehiculos().remove(vehiculo);
+                            break;
+                        }
+                    }
+                }
+            }   
         }
         return accion;
     }
