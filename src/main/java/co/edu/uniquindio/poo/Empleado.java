@@ -377,7 +377,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarVenta(Venta venta){
         boolean accion = false;
-        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede) && venta.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
+        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede) && venta.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && verificarCliente(venta.getCliente().getIdentificacion())) {
             sede.getListaVentas().add(venta);
             venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
             sede.aumentarDineroGenerado(venta.getTotalVenta());
@@ -431,7 +431,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarAlquiler(Alquiler alquiler){
         boolean accion = false;
-        if (isAutenticado() && !verificarAlquiler(alquiler.getCodigo()) && alquiler.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && alquiler.getSede().equals(sede) && alquiler.getVehiculo().getTipoUso().equals(Tipo_uso.ALQUILER)) {
+        if (isAutenticado() && !verificarAlquiler(alquiler.getCodigo()) && alquiler.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && alquiler.getSede().equals(sede) && alquiler.getVehiculo().getTipoUso().equals(Tipo_uso.ALQUILER) && verificarCliente(alquiler.getCliente().getIdentificacion())) {
             sede.getListaAlquileres().add(alquiler);
             alquiler.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
             listaAlquileres.add(alquiler);
@@ -511,12 +511,16 @@ public class Empleado extends Persona{
 
     public boolean agregarCompra(Compra compra){
         boolean accion = false;
-        if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada()) {
+        if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada() && compra.getSede().equals(sede) && verificarCliente(compra.getCliente().getIdentificacion())) {
             listaCompras.add(compra);
             sede.getListaCompras().add(compra);
-            sede.aumentarDineroGastado(compra.getTotalCompra());
         }
         return accion;
+    }
+    public void habilitarVehiculosCompra(List<Detalle_compra> listaDetallesCompra){
+        for (Detalle_compra detalle_compra : listaDetallesCompra) {
+            detalle_compra.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
+        }
     }
     public boolean verificarCompra(int codigo){
         boolean accion = false;
@@ -554,10 +558,11 @@ public class Empleado extends Persona{
                     Vehiculo vehiculo = detalleCompra.getVehiculo();
                     sede.getListaVehiculos().add(vehiculo);
                     concesionario.getListaVehiculos().add(vehiculo);
-                    sede.aumentarDineroGastado(compraTemporal.getTotalCompra());
-                    sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
                 }
             }
+            habilitarVehiculosCompra(compraTemporal.getListaDetallesCompra());
+            sede.aumentarDineroGastado(compraTemporal.getTotalCompra());
+            sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
         }
         return accion;
     }

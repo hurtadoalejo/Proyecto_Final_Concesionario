@@ -34,10 +34,6 @@ public class App {
         for (Vehiculo vehiculo : sede.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println("Compras sede 1: ");
-        for (Compra compraP : sede.getListaCompras()) {
-            System.out.println(compraP.getTotalCompra());
-        }
         System.out.println(sede.getDineroGanadoNeto());
         System.out.println(camioneta.getEstadoDisponibilidad());
     }
