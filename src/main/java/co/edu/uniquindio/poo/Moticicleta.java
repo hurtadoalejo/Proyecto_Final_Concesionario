@@ -13,8 +13,9 @@ public class Moticicleta extends Vehiculo_gasolina{
      * @param cilindraje Cilindraje de la moto a crear
      * @param tipoTransmision Tipo de transmision de la moto a crear
      * @param tipoUso Tipo de uso de la moto a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Moticicleta(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Moticicleta(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
     }
 }

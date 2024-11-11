@@ -13,9 +13,10 @@ public class Vehiculo_diesel extends Vehiculo{
      * @param cilindraje Cilindraje del vehiculo diesel a crear
      * @param tipoTransmision Tipo de transmision del vehiculo diesel a crear
      * @param tipoUso Tipo de uso del vehiculo diesel a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Vehiculo_diesel(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Vehiculo_diesel(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
     }
     
 }

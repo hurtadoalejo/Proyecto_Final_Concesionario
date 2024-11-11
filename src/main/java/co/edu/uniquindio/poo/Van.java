@@ -23,9 +23,10 @@ public class Van extends Vehiculo_diesel{
      * @param tieneAireAcondicionado Booleano sobre si la van a crear tiene aire acondicionado o no
      * @param tieneCamaraReversa Booleano sobre si la van a crear tiene camara de reversa o no
      * @param tieneABS Booleano sobre si la van a crear tiene ABS o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Van(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Van(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

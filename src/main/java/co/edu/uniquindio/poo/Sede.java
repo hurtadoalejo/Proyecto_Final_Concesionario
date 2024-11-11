@@ -1,5 +1,8 @@
 package co.edu.uniquindio.poo;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Sede {
     private int codigo;
     private String direccion;
@@ -7,6 +10,7 @@ public class Sede {
     private double dineroGenerado;
     private double dineroGastado;
     private double dineroGanadoNeto;
+    private List<Vehiculo> listaVehiculos;
     
     /**
      * Metodo constructor de la clase Sede
@@ -21,6 +25,7 @@ public class Sede {
         this.dineroGenerado = 0;
         this.dineroGastado = 0;
         this.dineroGanadoNeto = 0;
+        this.listaVehiculos = new LinkedList<>();
     }
 
     /**
@@ -64,6 +69,13 @@ public class Sede {
      */
     public double getDineroGanadoNeto() {
         return dineroGanadoNeto;
+    }
+    /**
+     * Metodo para obtener la lista de vehiculos de la sede
+     * @return Lista de vehiculos de la sede
+     */
+    public List<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
     }
 
     /**
@@ -109,5 +121,52 @@ public class Sede {
     public void setDineroGanadoNeto(double dineroGanadoNeto) {
         this.dineroGanadoNeto = dineroGanadoNeto;
     }
+    /**
+     * Metodo para modificar la lista de vehiculos de la sede
+     * @param listaVehiculos Nueva lista de vehiculos de la sede
+     */
+    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
+        this.listaVehiculos = listaVehiculos;
+    }
 
+    public boolean agregarVehiculo(Vehiculo vehiculo){
+        boolean accion = false;
+        if (verificarVehiculo(vehiculo.getPlaca())) {
+            listaVehiculos.add(vehiculo);
+            accion = true;
+        }
+        return accion;
+    }
+    public boolean verificarVehiculo(String placa){
+        boolean accion = false;
+        for (Vehiculo vehiculo : listaVehiculos) {
+            if (vehiculo.getPlaca().equals(placa)) {
+                accion = true;
+                break;
+            }
+        }
+        return accion;
+    }
+    public boolean actualizarVehiculo(String placa, Vehiculo vehiculoDado){
+        boolean accion = false;
+        for(int a = 0; a < listaVehiculos.size(); a++) {
+            if (listaVehiculos.get(a).getPlaca().equals(placa)) {
+                accion = true;
+                listaVehiculos.set(a, vehiculoDado);
+                break;
+            }
+        }
+        return accion;
+    }
+    public boolean eliminarVehiculo(String placa){
+        boolean accion = false;
+        for (Vehiculo vehiculo : listaVehiculos) {
+            if (vehiculo.getPlaca().equals(placa)) {
+                accion = true;
+                listaVehiculos.remove(vehiculo);
+                break;
+            }
+        }
+        return accion;
+    }
 }

@@ -12,13 +12,4 @@ public class Cliente extends Persona{
         super(nombre, identificacion, correo);
     }
 
-    /**
-     * Metodo para obtener la informacion del cliente
-     * @return Informacion del cliente
-     */
-    @Override
-    public String toString() {
-        String info = "";
-        return info;
-    }
 }

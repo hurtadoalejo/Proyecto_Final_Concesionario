@@ -20,9 +20,10 @@ public class Deportivo extends Vehiculo_gasolina{
      * @param numBolsasAire Numero de bolsas de aire del deportivo a crear
      * @param numHP Numero de caballos de fuerza del deportivo a crear
      * @param tiempoCienKm Tiempo en segundos que se demora en llegar de 0 a 100km por hora del deportivo a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Deportivo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int numPasajeros, int numPuertas, int numBolsasAire, double numHP, double tiempoCienKm) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Deportivo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int numPasajeros, int numPuertas, int numBolsasAire, double numHP, double tiempoCienKm, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

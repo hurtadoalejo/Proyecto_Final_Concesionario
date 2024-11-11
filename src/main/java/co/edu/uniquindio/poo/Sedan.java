@@ -29,9 +29,10 @@ public class Sedan extends Vehiculo_hibrido{
      * @param tieneSensorColision Booleano sobre si la sedan a crear tiene sensor de colision o no
      * @param tieneSensorTraficoCruzado Booleano sobre si la sedan a crear tiene sensor de trafico cruzado o no
      * @param tieneAsistentePermanenciaCarril Booleano sobre si la sedan a crear tiene asistente de permanencia de carril o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Sedan(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneVelocidadCrucero, boolean tieneABS, boolean tieneSensorColision, boolean tieneSensorTraficoCruzado, boolean tieneAsistentePermanenciaCarril) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, esEnchufable, esHibridoLigero);
+    public Sedan(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneVelocidadCrucero, boolean tieneABS, boolean tieneSensorColision, boolean tieneSensorTraficoCruzado, boolean tieneAsistentePermanenciaCarril, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, esEnchufable, esHibridoLigero, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

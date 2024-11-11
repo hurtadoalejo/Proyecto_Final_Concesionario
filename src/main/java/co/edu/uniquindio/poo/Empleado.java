@@ -3,17 +3,41 @@ package co.edu.uniquindio.poo;
 import java.util.List;
 import java.util.LinkedList;
 
-public class Empleado extends Persona {
+public class Empleado extends Persona{
+    private Concesionario concesionario;
     private double salarioBase;
     private Estado_empleado estadoEmpleado;
-    private List<Venta> listaAlquileres;
+    private String usuario;
+    private int password;
+    private boolean autenticado;
+    private List<Venta> listaVentas;
+    private List<Compra> listaCompras;
+    private List<Alquiler> listaAlquileres;
+    private Sede sede;
     
-
-    public Empleado(String nombre, String identificacion, String correo, double salarioBase, Estado_empleado estadoEmpleado) {
+    /**
+     * Metodo constructor de la clase Empleado
+     * @param nombre Nombre del empleado a crear
+     * @param identificacion Identificacion del empleado a crear
+     * @param correo Correo del empleado a crear
+     * @param salarioBase Salario base del empleado a crear
+     * @param estadoEmpleado Estado del empleado a crear
+     * @param usuario Usuario del empleado a crear
+     * @param password Contraseña del empleado a crear
+     * @param sede Sede del empleado a crear
+     */
+    public Empleado(String nombre, String identificacion, String correo, double salarioBase, String usuario, int password, Concesionario concesionario, Sede sede){
         super(nombre, identificacion, correo);
         this.salarioBase = salarioBase;
-        this.estadoEmpleado = estadoEmpleado;
+        this.estadoEmpleado = Estado_empleado.NO_ACTIVO;
+        this.usuario = usuario;
+        this.password = password;
+        this.autenticado = false;
+        this.listaVentas = new LinkedList<>();
+        this.listaCompras = new LinkedList<>();
         this.listaAlquileres = new LinkedList<>();
+        this.concesionario = concesionario;
+        this.sede = sede;
     }
 
     /**
@@ -30,6 +54,62 @@ public class Empleado extends Persona {
     public Estado_empleado getEstadoEmpleado() {
         return estadoEmpleado;
     }
+    /**
+     * Metodo para obtener el usuario de un empleado
+     * @return Usuario de un empleado
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+    /**
+     * Metodo para obtener la contraseña de un empleado
+     * @return Contraseña de un empleado
+     */
+    public int getPassword() {
+        return password;
+    }
+    /**
+     * Metodo para obtener si el empleado esta autenticado o no
+     * @return Booleano sobre si el empleado esta autenticado o no
+     */
+    public boolean isAutenticado() {
+        return autenticado;
+    }
+    /**
+     * Metodo para obtener la lista de ventas de un empleado
+     * @return Lista de ventas de un empleado
+     */
+    public List<Venta> getListaVentas() {
+        return listaVentas;
+    }
+    /**
+     * Metodo para obtener la lista de compras de un empleado
+     * @return Lista de compras de un empleado
+     */
+    public List<Compra> getListaCompras() {
+        return listaCompras;
+    }
+    /**
+     * Metodo para obtener la lista de alquileres de un empleado
+     * @return Lista de alquileres de un empleado
+     */
+    public List<Alquiler> getListaAlquileres() {
+        return listaAlquileres;
+    }
+    /**
+     * Metodo para obtener el concesionario al que esta asociado el empleado
+     * @return Concesionario al que esta asociado el empleado
+     */
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+    /**
+     * Metodo para obtener la sede a la que esta asociado el empleado
+     * @return Sede a la que esta asociado el empleado
+     */
+    public Sede getSede() {
+        return sede;
+    }
 
     /**
      * Metodo para modificar el salario base de un empleado
@@ -45,5 +125,199 @@ public class Empleado extends Persona {
     public void setEstadoEmpleado(Estado_empleado estadoEmpleado) {
         this.estadoEmpleado = estadoEmpleado;
     }
+    /**
+     * Metodo para modificar el usuario de un empleado
+     * @param usuario Nuevo usuario de un empleado
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    /**
+     * Metodo para modificar la contraseña de un empleado
+     * @param password Nueva contraseña de un empleado
+     */
+    public void setPassword(int password) {
+        this.password = password;
+    }
+    /**
+     * Metodo para modificar si el empleado esta autenticado o no
+     * @param autenticado Nuevo booleano si el empleado esta autenticado o no
+     */
+    public void setAutenticado(boolean autenticado) {
+        this.autenticado = autenticado;
+    }
+    /**
+     * Metodo para modificar la lista de ventas de un empleado
+     * @param listaCompras Nueva lista de ventas de un empleado
+     */
+    public void setListaCompras(List<Compra> listaCompras) {
+        this.listaCompras = listaCompras;
+    }
+    /**
+     * Metodo para modificar la lista de compras de un empleado
+     * @param listaVentas Nueva lista de compras de un empleado
+     */
+    public void setListaVentas(List<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
+    }
+    /**
+     * Metodo para modificar la lista de alquileres de un empleado
+     * @param listaAlquileres Nueva lista de alquileres de un empleado
+     */
+    public void setListaAlquileres(List<Alquiler> listaAlquileres) {
+        this.listaAlquileres = listaAlquileres;
+    }
+    /**
+     * Metodo para modificar el concesionario la que esta asociado un empleado
+     * @param concesionario Nuevo concesionario la que esta asociado un empleado
+     */
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+    /**
+     * Metodo para modificar la sede a la que esta asociado un empleado
+     * @param sede Nueva sede a la que esta asociado un empleado
+     */
+    public void setSede(Sede sede) {
+        this.sede = sede;
+    }
 
+    /**
+     * Metodo para autenticar el usuario y contraseña de un usuario
+     * @param usuarioDado Usuario a verificar
+     * @param passwordDada Contraseña a verificar
+     * @return Booleano sobre si la autenticacion fue lograda o no
+     */
+    public boolean autenticar(String usuarioDado, int passwordDada){
+        if (usuario.equals(usuarioDado) && password == passwordDada) {
+            setAutenticado(true);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    /**
+     * Metodo para cerrar la sesion de un empleado
+     */
+    public void cerrarSesion(){
+        setAutenticado(false);
+    }
+
+    /**
+     * Metodo para agregar un cliente a la lista de clientes del concesionario
+     * @param cliente Cliente que se busca agregar a la lista de clientes del concesionario
+     * @return Booleano sobre si se pudo agregar el cliente o no
+     */
+    public boolean agregarCliente(Cliente cliente) {
+        boolean accion = false;
+        if (!verificarCliente(cliente.getIdentificacion()) && isAutenticado()) {
+            concesionario.getListaClientes().add(cliente);
+            accion = true;
+        }
+        return accion;
+    }
+    /**
+     * Metodo para verificar si una cedula coincide con alguna cedula de un cliente de la lista de clientes del concesionario
+     * @param cedula Cedula a verificar
+     * @return Booleano sobre si hay un cliente que cumple con esta condicion o no
+     */
+    public boolean verificarCliente(String cedula) {
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Cliente cliente : concesionario.getListaClientes()) {
+                if (cliente.getIdentificacion().equals(cedula)) {
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para actualizar algunos datos de un cliente de la lista de clientes del concesionario
+     * @param cedula Cedula del cliente que se quiere actualizar
+     * @param clienteNuevo Cliente con los datos nuevos
+     * @return Booleano sobre si se pudo actualizar el cliente o no
+     */
+    public boolean actualizarCliente(String cedula, Cliente clienteNuevo) {
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Cliente cliente : concesionario.getListaClientes()) {
+                if (cliente.getIdentificacion().equals(cedula)) {
+                    cliente.setNombre(clienteNuevo.getNombre());
+                    cliente.setCorreo(clienteNuevo.getCorreo());
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para eliminar un cliente de la lista de clientes del concesionario
+     * @param cedula Cedula del cliente que se busca eliminar
+     * @return Booleano sobre si se pudo eliminar el cliente o no
+     */
+    public boolean eliminarCliente(String cedula) {
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Cliente cliente : concesionario.getListaClientes()) {
+                if (cliente.getIdentificacion().equals(cedula)) {
+                    concesionario.getListaClientes().remove(cliente);
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    
+    public boolean agregarVehiculo(Vehiculo vehiculo){
+        boolean accion = false;
+        if (isAutenticado() && !verificarVehiculo(vehiculo.getPlaca()) && vehiculo.getSede().equals(sede)) {
+            concesionario.getListaVehiculos().add(vehiculo);
+            sede.getListaVehiculos().add(vehiculo);
+        }
+        return accion;
+    }
+    public boolean verificarVehiculo(String placa){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
+                if (vehiculo.getPlaca().equals(placa)) {
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    public boolean actualizarVehiculo(String placa, Vehiculo vehiculoDado){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (int a = 0; a < concesionario.getListaVehiculos().size(); a++) {
+                if (concesionario.getListaVehiculos().get(a).getPlaca().equals(placa)) {
+                    accion = true;
+                    concesionario.getListaVehiculos().set(a, vehiculoDado);
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    public boolean eliminarVehiculo(String placa){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
+                if (vehiculo.getPlaca().equals(placa)) {
+                    accion = true;
+                    concesionario.getListaVehiculos().remove(vehiculo);
+                    sede.getListaVehiculos().remove(vehiculo);
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
 }

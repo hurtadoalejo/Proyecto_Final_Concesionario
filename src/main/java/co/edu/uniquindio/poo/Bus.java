@@ -27,9 +27,10 @@ public class Bus extends Vehiculo_hibrido{
      * @param tieneAireAcondicionado Booleano sobre si el bus a crear tiene aire acondicionado o no
      * @param tieneCamaraReversa Booleano sobre si el bus a crear tiene camara de reversa o no
      * @param tieneABS Booleano sobre si el bus a crear tiene ABS o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Bus(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios,double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero, int numPasajeros, int numPuertas, int numBolsasAire, int numEjes, int numSalidasEmergencia, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, esEnchufable, esHibridoLigero);
+    public Bus(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios,double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero, int numPasajeros, int numPuertas, int numBolsasAire, int numEjes, int numSalidasEmergencia, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, esEnchufable, esHibridoLigero, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

@@ -30,9 +30,10 @@ public class Camioneta extends Vehiculo_electrico{
      * @param tieneSensorTraficoCruzado Booleano sobre si la camioneta a crear tiene sensor de trafico cruzado o no
      * @param tieneAsistentePermanenciaCarril Booleano sobre si la camioneta a crear tiene asistente de permanencia de carril o no
      * @param esCuatroXCuatro Booleano sobre si la camioneta a crear es 4x4 o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Camioneta(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneVelocidadCrucero, boolean tieneABS, boolean tieneSensorColision, boolean tieneSensorTraficoCruzado, boolean tieneAsistentePermanenciaCarril, boolean esCuatroXCuatro) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, autonomiaMinutos, tiempoCarga);
+    public Camioneta(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadMaletero, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneVelocidadCrucero, boolean tieneABS, boolean tieneSensorColision, boolean tieneSensorTraficoCruzado, boolean tieneAsistentePermanenciaCarril, boolean esCuatroXCuatro, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, autonomiaMinutos, tiempoCarga, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

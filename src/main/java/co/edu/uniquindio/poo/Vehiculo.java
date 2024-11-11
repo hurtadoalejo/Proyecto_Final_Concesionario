@@ -7,6 +7,8 @@ public class Vehiculo {
     private double velocidadMax, cilindraje;
     private Tipo_transmision tipoTransmision;
     private Tipo_uso tipoUso;
+    private Estado_disponibilidad estadoDisponibilidad;
+    private Sede sede;
 
     /**
      * Metodo constructor de la clase Vehiculo
@@ -19,8 +21,9 @@ public class Vehiculo {
      * @param cilindraje Cilindraje del vehiculo a crear
      * @param tipoTransmision Tipo de transmision del vehiculo a crear
      * @param tipoUso Tipo de uso del vehiculo a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Vehiculo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso) {
+    public Vehiculo(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, Sede sede) {
         this.placa = placa;
         this.marca = marca;
         this.estadoVehiculo = estadoVehiculo;
@@ -30,6 +33,8 @@ public class Vehiculo {
         this.cilindraje = cilindraje;
         this.tipoTransmision = tipoTransmision;
         this.tipoUso = tipoUso;
+        this.estadoDisponibilidad = Estado_disponibilidad.DISPONIBLE;
+        this.sede = sede;
     }
 
     /**
@@ -95,6 +100,20 @@ public class Vehiculo {
     public Tipo_uso getTipoUso() {
         return tipoUso;
     }
+    /**
+     * Metodo para obtener el estado de disponibilidad del vehiculo
+     * @return Estado de disponibilidad del vehiculo
+     */
+    public Estado_disponibilidad getEstadoDisponibilidad() {
+        return estadoDisponibilidad;
+    }
+    /**
+     * Metodo para obtener la sede del vehiculo a crear
+     * @return Sede del vehiculo
+     */
+    public Sede getSede() {
+        return sede;
+    }
 
     /**
      * Metodo para modificar la placa del vehiculo
@@ -158,6 +177,20 @@ public class Vehiculo {
      */
     public void setTipoUso(Tipo_uso tipoUso) {
         this.tipoUso = tipoUso;
+    }
+    /**
+     * Metodo para modificar el estado de disponibilidad del vehiculo
+     * @param estadoDisponibilidad Nuevo estado de disponibilidad del vehiculo
+     */
+    public void setEstadoDisponibilidad(Estado_disponibilidad estadoDisponibilidad) {
+        this.estadoDisponibilidad = estadoDisponibilidad;
+    }
+    /**
+     * Metodo para modificar la sede del vehiculo
+     * @param sede Nueva sede del vehiculo
+     */
+    public void setSede(Sede sede) {
+        this.sede = sede;
     }
 
 }

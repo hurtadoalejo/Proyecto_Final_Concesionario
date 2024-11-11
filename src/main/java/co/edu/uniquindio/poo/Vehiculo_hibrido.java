@@ -17,9 +17,10 @@ public class Vehiculo_hibrido extends Vehiculo{
      * @param tipoUso Tipo de uso del vehiculo hibrido a crear
      * @param esEnchufable Booleano sobre si el vehiculo hibrido a crear es enchufable o no
      * @param esHibridoLigero Booleano sobre si el vehiculo hibrido a crear es hibrido ligero o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Vehiculo_hibrido(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Vehiculo_hibrido(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean esEnchufable, boolean esHibridoLigero, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
         this.esEnchufable = esEnchufable;
         this.esHibridoLigero = determinarHibridoLigero(esEnchufable, esHibridoLigero);
     }

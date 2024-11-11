@@ -26,9 +26,10 @@ public class Pick_up extends Vehiculo_electrico{
      * @param tieneCamaraReversa Booleano sobre si la Pick up a crear tiene camara de reversa o no
      * @param tieneABS Booleano sobre si la Pick up a crear tiene ABS o no
      * @param esCuatroXCuatro Booleano sobre si la Pick up a crear es 4x4 o no
+     * @param Sede Sede del vehiculo a crear
      */
-    public Pick_up(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadCajaCarga, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS, boolean esCuatroXCuatro) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, autonomiaMinutos, tiempoCarga);
+    public Pick_up(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga, int numPasajeros, int numPuertas, int numBolsasAire, double capacidadCajaCarga, boolean tieneAireAcondicionado, boolean tieneCamaraReversa, boolean tieneABS, boolean esCuatroXCuatro, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, autonomiaMinutos, tiempoCarga, sede);
         this.numPasajeros = numPasajeros;
         this.numPuertas = numPuertas;
         this.numBolsasAire = numBolsasAire;

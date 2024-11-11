@@ -23,9 +23,10 @@ public class Camion extends Vehiculo_diesel{
      * @param numEjes Numero de ejes del camion a crear
      * @param capacidadCajaCarga Capacidad de la caja de carga del camion a crear
      * @param tipoCamion Tipo de camion del camion a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Camion(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean tieneAireAcondicionado, boolean tieneFrenosAire, boolean tieneABS, int numEjes, double capacidadCajaCarga, String tipoCamion) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Camion(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, boolean tieneAireAcondicionado, boolean tieneFrenosAire, boolean tieneABS, int numEjes, double capacidadCajaCarga, String tipoCamion, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
         this.tieneAireAcondicionado = tieneAireAcondicionado;
         this.tieneFrenosAire = tieneFrenosAire;
         this.tieneABS = tieneABS;

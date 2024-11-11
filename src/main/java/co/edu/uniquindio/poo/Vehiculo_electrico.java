@@ -17,9 +17,10 @@ public class Vehiculo_electrico extends Vehiculo{
      * @param tipoUso Tipo de uso del vehiculo electrico a crear
      * @param autonomiaMinutos Autonomio de carga completa del vehiculo electrico a crear
      * @param tiempoCarga Tiempo de carga completa del vehiculo electrico a crear
+     * @param Sede Sede del vehiculo a crear
      */
-    public Vehiculo_electrico(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga) {
-        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso);
+    public Vehiculo_electrico(String placa, String marca, Estado_vehiculo estadoVehiculo, int modelo, int cantidadCambios, double velocidadMax, double cilindraje, Tipo_transmision tipoTransmision, Tipo_uso tipoUso, int autonomiaMinutos, int tiempoCarga, Sede sede) {
+        super(placa, marca, estadoVehiculo, modelo, cantidadCambios, velocidadMax, cilindraje, tipoTransmision, tipoUso, sede);
         this.autonomiaMinutos = autonomiaMinutos;
         this.tiempoCarga = tiempoCarga;
     }
