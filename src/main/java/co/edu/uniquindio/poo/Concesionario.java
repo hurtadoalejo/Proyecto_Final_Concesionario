@@ -258,4 +258,60 @@ public class Concesionario{
     public void cerrarSesion(){
         setAutenticado(false);
     }
+
+    public boolean agregarAdministrador(Administrador administrador){
+        boolean accion = false;
+        if (!verificarPersona(administrador.getIdentificacion())) {
+            listaAdministradores.add(administrador);
+            administrador.getSede().setAdministrador(administrador);
+            accion = true;
+        }
+        return accion;
+    }
+    public boolean actualizarAdministrador(String identificacion, Administrador administradorNuevo){
+        boolean accion = false;
+        for (Administrador administrador : listaAdministradores) {
+            if (administrador.getIdentificacion().equals(identificacion)) {
+                if (administrador.getSede().equals(administradorNuevo.getSede())) {
+                    administrador.getSede().setAdministrador(administradorNuevo);
+                }
+                else{
+                    administrador.getSede().setAdministrador(null);
+                    administradorNuevo.getSede().setAdministrador(administradorNuevo);
+                }
+            }
+        }
+        return accion;
+    }
+    public boolean eliminarAdministrador(String identificacion){
+        boolean accion = false;
+        return accion;
+    }
+    /**
+     * Metodo para verificar si existe una persona con la misma identificacion administrada en la lista de empleados, administradores o clientes del concesionario
+     * @param identificacion Identificacion a verificar
+     * @return Booleano sobre si existe una persona con esta condicion o no
+     */
+    public boolean verificarPersona(String identificacion){
+        boolean accion = false;
+        for (Empleado empleado : listaEmpleados) {
+            if (empleado.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
+            }
+        }
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
+            }
+        }
+        for (Administrador administrador : listaAdministradores) {
+            if (administrador.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
+            }
+        }
+        return accion;
+    }
 }

@@ -15,6 +15,7 @@ public class Sede {
     private List<Venta> listaVentas;
     private List<Compra> listaCompras;
     private List<Alquiler> listaAlquileres;
+    private Administrador administrador;
     
     /**
      * Metodo constructor de la clase Sede
@@ -34,6 +35,7 @@ public class Sede {
         this.listaVentas = new LinkedList<>();
         this.listaCompras = new LinkedList<>();
         this.listaAlquileres = new LinkedList<>();
+        this.administrador = null;
     }
 
     /**
@@ -113,6 +115,13 @@ public class Sede {
     public List<Alquiler> getListaAlquileres() {
         return listaAlquileres;
     }
+    /**
+     * Metodo para obtener el administrador de la sede
+     * @return Administrador de la sede
+     */
+    public Administrador getAdministrador() {
+        return administrador;
+    }
 
     /**
      * Metodo para modificar el codigo de la sede
@@ -191,6 +200,13 @@ public class Sede {
      */
     public void setListaAlquileres(List<Alquiler> listaAlquileres) {
         this.listaAlquileres = listaAlquileres;
+    }
+    /**
+     * Metodo para modificar el administrador de la sede
+     * @param administrador Nuevo administrador de la sede
+     */
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 
     /**

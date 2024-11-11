@@ -213,7 +213,7 @@ public class Empleado extends Persona{
      */
     public boolean agregarCliente(Cliente cliente) {
         boolean accion = false;
-        if (!verificarCliente(cliente.getIdentificacion()) && isAutenticado()) {
+        if (!verificarPersona(cliente.getIdentificacion()) && isAutenticado()) {
             concesionario.getListaClientes().add(cliente);
             accion = true;
         }
@@ -232,6 +232,33 @@ public class Empleado extends Persona{
                     accion = true;
                     break;
                 }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para verificar si existe una persona con la misma identificacion administrada en la lista de empleados, administradores o clientes del concesionario
+     * @param identificacion Identificacion a verificar
+     * @return Booleano sobre si existe una persona con esta condicion o no
+     */
+    public boolean verificarPersona(String identificacion){
+        boolean accion = false;
+        for (Empleado empleado : concesionario.getListaEmpleados()) {
+            if (empleado.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
+            }
+        }
+        for (Cliente cliente : concesionario.getListaClientes()) {
+            if (cliente.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
+            }
+        }
+        for (Administrador administrador : concesionario.getListaAdministradores()) {
+            if (administrador.getIdentificacion().equals(identificacion)) {
+                accion = true;
+                return accion;
             }
         }
         return accion;
@@ -414,6 +441,7 @@ public class Empleado extends Persona{
             for (Venta venta : sede.getListaVentas()) {
                 if (venta.getCodigo() == codigo && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
                     venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
+                    listaVentas.remove(venta);
                     sede.aumentarDineroGenerado(venta.getTotalVenta()*-1);
                     sede.getListaVentas().remove(venta);
                     sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
@@ -509,19 +537,37 @@ public class Empleado extends Persona{
         return accion;
     }
 
+    /**
+     * Metodo para agregar una compra a la lista de compras del empleado y de la sede
+     * @param compra Compra que se busca agregar
+     * @return Booleano sobre si se pudo agregar la compra o no
+     */
     public boolean agregarCompra(Compra compra){
         boolean accion = false;
+        if (verificarCliente(compra.getCliente().getIdentificacion())) {
+            System.out.println("Hola");
+        }
+
         if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada() && compra.getSede().equals(sede) && verificarCliente(compra.getCliente().getIdentificacion())) {
             listaCompras.add(compra);
             sede.getListaCompras().add(compra);
         }
         return accion;
     }
+    /**
+     * Metodo para habilitar todos los vehiculos que se han comprado a un cliente
+     * @param listaDetallesCompra Lista de detalles de una compra efectuada
+     */
     public void habilitarVehiculosCompra(List<Detalle_compra> listaDetallesCompra){
         for (Detalle_compra detalle_compra : listaDetallesCompra) {
             detalle_compra.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
         }
     }
+    /**
+     * Metodo para verificar si hay una compra con el mismo codigo que uno dado en la lista de compras de la sede 
+     * @param codigo Codigo a verificar
+     * @return Booleano sobre si existe una compra con esta condicion o no
+     */
     public boolean verificarCompra(int codigo){
         boolean accion = false;
         if (isAutenticado()) {
@@ -534,14 +580,22 @@ public class Empleado extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para eliminar una compra de la lista de compras del empleado y su sede
+     * @param codigo Codigo de la compra a eliminar
+     * @return Booleano sobre si se pudo eliminar la compra o no
+     */
     public boolean eliminarCompra(int codigo){
         boolean accion = false;
         if (isAutenticado()) {
             for (Compra compra : sede.getListaCompras()) {
-                if (compra.getCodigo() == codigo && compra.getListaDetallesCompra().isEmpty()) {
+                if (compra.getCodigo() == codigo) {
+                    if (compra.isConcretada()) {
+                        devolverVehiculos(compra.getListaDetallesCompra());
+                    }
                     sede.getListaCompras().remove(compra);
                     listaCompras.remove(compra);
-                    sede.aumentarDineroGastado(compra.getTotalCompra()*-1);
+                    sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
                     accion = true;
                     break;
                 }
@@ -549,6 +603,22 @@ public class Empleado extends Persona{
         }
         return accion;
     }
+    /**
+     * Metodo para devolver todos los vehiculos que se compraron y reembolsar el dinero
+     * @param listaDetallesCompra Lista de detalles de compra de la compra que se va a devolver
+     */
+    public void devolverVehiculos(List<Detalle_compra> listaDetallesCompra){
+        for (Detalle_compra detalle_compra : listaDetallesCompra) {
+            sede.getListaVehiculos().remove(detalle_compra.getVehiculo());
+            concesionario.getListaVehiculos().remove(detalle_compra.getVehiculo());
+            sede.aumentarDineroGastado(detalle_compra.getSubtotal()*-1);
+        }
+    }
+    /**
+     * Metodo para concretar una compra relacionada a un codigo administrado
+     * @param codigo Codigo administrado
+     * @return Booleano sobre si se pudo concretar la compra o no
+     */
     public boolean concretarCompra(int codigo){
         boolean accion = false;
         for (Compra compraTemporal : sede.getListaCompras()) {
@@ -558,6 +628,7 @@ public class Empleado extends Persona{
                     Vehiculo vehiculo = detalleCompra.getVehiculo();
                     sede.getListaVehiculos().add(vehiculo);
                     concesionario.getListaVehiculos().add(vehiculo);
+                    accion = true;
                 }
             }
             habilitarVehiculosCompra(compraTemporal.getListaDetallesCompra());
