@@ -1,6 +1,8 @@
 package co.edu.uniquindio.poo;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 
 public class Empleado extends Persona{
@@ -375,10 +377,11 @@ public class Empleado extends Persona{
      */
     public boolean agregarVenta(Venta venta){
         boolean accion = false;
-        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede)) {
+        if (isAutenticado() && !verificarVenta(venta.getCodigo()) && venta.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && venta.getSede().equals(sede) && venta.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
             sede.getListaVentas().add(venta);
             venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
-            sede.aumentarDineroGastado(venta.getTotalVenta());
+            sede.aumentarDineroGenerado(venta.getTotalVenta());
+            sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
             accion = true;
         }
         return accion;
@@ -394,6 +397,7 @@ public class Empleado extends Persona{
             for (Venta venta : sede.getListaVentas()) {
                 if (venta.getCodigo() == codigo) {
                     accion = true;
+                    break;
                 }
             }
         }
@@ -408,10 +412,150 @@ public class Empleado extends Persona{
         boolean accion = false;
         if (isAutenticado()) {
             for (Venta venta : sede.getListaVentas()) {
-                if (venta.getCodigo() == codigo) {
+                if (venta.getCodigo() == codigo && venta.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
                     venta.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
-                    sede.aumentarDineroGastado(venta.getTotalVenta()*-1);
+                    sede.aumentarDineroGenerado(venta.getTotalVenta()*-1);
+                    sede.getListaVentas().remove(venta);
+                    sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
                     accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para agregar un alquiler a la lista de alquileres de la sede y del empleado
+     * @param alquiler Alquiler que se busca agregar
+     * @return Booleano sobre si se pudo agregar el alquiler o no
+     */
+    public boolean agregarAlquiler(Alquiler alquiler){
+        boolean accion = false;
+        if (isAutenticado() && !verificarAlquiler(alquiler.getCodigo()) && alquiler.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && alquiler.getSede().equals(sede) && alquiler.getVehiculo().getTipoUso().equals(Tipo_uso.ALQUILER)) {
+            sede.getListaAlquileres().add(alquiler);
+            alquiler.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
+            listaAlquileres.add(alquiler);
+            accion = true;
+        }
+        return accion;
+    }
+    /**
+     * Metodo para verificar si hay un alquiler con el mismo codigo que uno administrado
+     * @param codigo Codigo a verificar
+     * @return Booleano sobre si hay algun alquiler con esa condicion o no
+     */
+    public boolean verificarAlquiler(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Alquiler alquiler : sede.getListaAlquileres()) {
+                if (alquiler.getCodigo() == codigo) {
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para eliminar un alquiler de la lista de alquileres de la sede y del empleado
+     * @param codigo Codigo del alquiler que se busca eliminar
+     * @return Booleano sobre si se pudo eliminar el alquiler o no
+     */
+    public boolean eliminarAlquiler(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Alquiler alquiler : listaAlquileres) {
+                if (alquiler.getCodigo() == codigo && alquiler.getEmpleado().getIdentificacion().equals(super.getIdentificacion())) {
+                    if (alquiler.getEstadoAlquiler().equals(Estado_alquiler.PAGADO)) {
+                        sede.aumentarDineroGenerado(alquiler.getTotalPrestamo()*-1);
+                        sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
+                    }
+                    else{
+                        alquiler.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
+                    }
+                    listaAlquileres.remove(alquiler);
+                    sede.getListaAlquileres().remove(alquiler);
+                    accion = true;
+                }
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para entregar un alquiler
+     * @param codigo Codigo del alquiler
+     * @param fechaEntrega Fecha de entrega del alquiler
+     * @return Booleano sobre si se pudo entregar el alquiler o no
+     */
+    public boolean entregarAlquiler(int codigo, LocalDate fechaEntrega){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Alquiler alquiler : listaAlquileres) {
+                if (alquiler.getCodigo() == codigo && alquiler.getEmpleado().getIdentificacion().equals(super.getIdentificacion()) && alquiler.getEstadoAlquiler().equals(Estado_alquiler.PENDIENTE)) {
+                    LocalDate fechaAlquiler = alquiler.getFechaAlquiler();
+                    if (fechaEntrega.isAfter(fechaAlquiler)) {
+                        int diasPrestamo = (int) ChronoUnit.DAYS.between(fechaAlquiler, fechaEntrega);
+                        double totalPrestamo = diasPrestamo*alquiler.getPrecioPorDia();
+                        alquiler.setTotalPrestamo(totalPrestamo);
+                        alquiler.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
+                        alquiler.setEstadoAlquiler(Estado_alquiler.PAGADO);
+                        sede.aumentarDineroGenerado(totalPrestamo);
+                        sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
+                        accion = true;
+                    }
+                }
+            }
+        }
+        return accion;
+    }
+
+    public boolean agregarCompra(Compra compra){
+        boolean accion = false;
+        if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada()) {
+            listaCompras.add(compra);
+            sede.getListaCompras().add(compra);
+            sede.aumentarDineroGastado(compra.getTotalCompra());
+        }
+        return accion;
+    }
+    public boolean verificarCompra(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Compra compra : sede.getListaCompras()) {
+                if (compra.getCodigo() == codigo) {
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    public boolean eliminarCompra(int codigo){
+        boolean accion = false;
+        if (isAutenticado()) {
+            for (Compra compra : sede.getListaCompras()) {
+                if (compra.getCodigo() == codigo && compra.getListaDetallesCompra().isEmpty()) {
+                    sede.getListaCompras().remove(compra);
+                    listaCompras.remove(compra);
+                    sede.aumentarDineroGastado(compra.getTotalCompra()*-1);
+                    accion = true;
+                    break;
+                }
+            }
+        }
+        return accion;
+    }
+    public boolean concretarCompra(int codigo){
+        boolean accion = false;
+        for (Compra compraTemporal : sede.getListaCompras()) {
+            if (compraTemporal.getCodigo() == codigo && !compraTemporal.isConcretada()) {
+                compraTemporal.setConcretada(true);
+                for (Detalle_compra detalleCompra : compraTemporal.getListaDetallesCompra()) {
+                    Vehiculo vehiculo = detalleCompra.getVehiculo();
+                    sede.getListaVehiculos().add(vehiculo);
+                    concesionario.getListaVehiculos().add(vehiculo);
+                    sede.aumentarDineroGastado(compraTemporal.getTotalCompra());
+                    sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
                 }
             }
         }

@@ -28,7 +28,7 @@ public class Sede {
         this.ciudad = ciudad;
         this.dineroGenerado = 0;
         this.dineroGastado = 0;
-        this.dineroGanadoNeto = 0;
+        this.dineroGanadoNeto = calcularDineroGanadoNeto();
         this.listaEmpleados = new LinkedList<>();
         this.listaVehiculos = new LinkedList<>();
         this.listaVentas = new LinkedList<>();
@@ -209,5 +209,12 @@ public class Sede {
         double dineroTotalGenerado = dineroGenerado;
         setDineroGenerado(dineroTotalGenerado+dinero);
     }
-
+    /**
+     * Metodo para calcular el dinero ganado neto de la sede
+     * @return Dinero ganado neto de la sede
+     */
+    public double calcularDineroGanadoNeto(){
+        double total = dineroGenerado - dineroGastado;
+        return total;
+    }
 }

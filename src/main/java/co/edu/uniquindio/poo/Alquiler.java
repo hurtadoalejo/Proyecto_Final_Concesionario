@@ -12,6 +12,7 @@ public class Alquiler {
     private double precioPorDia;
     private double totalPrestamo;
     private Estado_alquiler estadoAlquiler;
+    private Sede sede;
     
     /**
      * Metodo constructor de la clase Alquiler
@@ -22,8 +23,9 @@ public class Alquiler {
      * @param fechaAlquiler Fecha del alquiler a crear
      * @param precioPorDia Precio por dia del alquiler a crear
      * @param totalPrestamo Total del alquiler a crear
+     * @param sede Sede del alquiler a crear
      */
-    public Alquiler(int codigo, Cliente cliente, Vehiculo vehiculo, Empleado empleado, LocalDate fechaAlquiler, double precioPorDia){
+    public Alquiler(int codigo, Cliente cliente, Vehiculo vehiculo, Empleado empleado, LocalDate fechaAlquiler, double precioPorDia, Sede sede){
         this.codigo = codigo;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
@@ -33,6 +35,7 @@ public class Alquiler {
         this.totalPrestamo = 0;
         this.estadoAlquiler = Estado_alquiler.PENDIENTE;
         this.fechaEntregaAlquiler = null;
+        this.sede = sede;
     }
     
     /**
@@ -98,6 +101,13 @@ public class Alquiler {
     public Estado_alquiler getEstadoAlquiler() {
         return estadoAlquiler;
     }
+    /**
+     * Metodo para obtener la sede del alquiler
+     * @return Sede del alquiler
+     */
+    public Sede getSede() {
+        return sede;
+    }
 
     /**
      * Metodo para modificar el codigo del alquiler
@@ -162,4 +172,12 @@ public class Alquiler {
     public void setEstadoAlquiler(Estado_alquiler estadoAlquiler) {
         this.estadoAlquiler = estadoAlquiler;
     }
+    /**
+     * Metodo para modificar la sede del alquiler
+     * @param sede Sede del alquiler
+     */
+    public void setSede(Sede sede) {
+        this.sede = sede;
+    }
+
 }

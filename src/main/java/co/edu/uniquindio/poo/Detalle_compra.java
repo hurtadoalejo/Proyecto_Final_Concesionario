@@ -4,18 +4,21 @@ public class Detalle_compra {
     private Vehiculo vehiculo;
     private double precioVehiculo, subtotal;
     private Compra compra;
+    private boolean tecnomecanicaValida;
 
     /**
      * Metodo constructor de la clase del detalle de compra
      * @param vehiculo Vehiculo del detalle de compra a crear
      * @param precioVehiculo Precio del vehiculo del detalle de compra a crear
      * @param compra Compra del detalle de compra a crear
+     * @param TecnomecanicaHecha Booleano sobre si el vehiculo del detalle de compra ya tiene la tecnomecanica hecha o no
      */
-    public Detalle_compra(Vehiculo vehiculo, double precioVehiculo, Compra compra) {
+    public Detalle_compra(Vehiculo vehiculo, double precioVehiculo, Compra compra, boolean tecnomecanicaValida) {
         this.vehiculo = vehiculo;
         this.precioVehiculo = precioVehiculo;
         this.compra = compra;
         this.subtotal = calcularSubtotal();
+        this.tecnomecanicaValida = tecnomecanicaValida;
     }
 
     /**
@@ -55,6 +58,13 @@ public class Detalle_compra {
     public double getSubtotal() {
         return subtotal;
     }
+    /**
+     * Metodo para obtener si el vehiculo del detalle de compra tiene una tecnomecania valida o no
+     * @return Booleano sobre si el vehiculo del detalle de compra tiene una tecnomecania valida o no
+     */
+    public boolean isTecnomecanicaValida() {
+        return tecnomecanicaValida;
+    }
 
     /**
      * Metodo para modificar el vehiculo del detalle de compra
@@ -83,6 +93,13 @@ public class Detalle_compra {
      */
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
+    }
+    /**
+     * Metodo para modificar el booleano sobre si el vehiculo del detalle de compra tiene tecnomecanica valida o no
+     * @param tecnomecanicaValida Nuevo booleano sobre la tecnomecanica del vehiculo de detalle de compra
+     */
+    public void setTecnomecanicaValida(boolean tecnomecanicaValida) {
+        this.tecnomecanicaValida = tecnomecanicaValida;
     }
 
 }

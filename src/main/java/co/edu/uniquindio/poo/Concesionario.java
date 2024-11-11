@@ -10,12 +10,15 @@ public class Concesionario{
     private List<Administrador> listaAdministradores;
     private List<Cliente> listaClientes;
     private List<Vehiculo> listaVehiculos;
+    private int password;
+    private boolean autenticado;
     
     /**
      * Metodo constructor de la clase Concesionario
      * @param nombre Nombre del concesionario a crear
+     * @param password Contraseña del concesionario a crear
      */
-    public Concesionario(String nombre) {
+    public Concesionario(String nombre, int password) {
         this.nombre = nombre;
         this.gananciasNetas = 0;
         this.listaSedes = new LinkedList<>();
@@ -23,6 +26,8 @@ public class Concesionario{
         this.listaAdministradores = new LinkedList<>();
         this.listaClientes = new LinkedList<>();
         this.listaVehiculos = new LinkedList<>();
+        this.password = password;
+        this.autenticado = false;
     } 
 
     /**
@@ -31,6 +36,20 @@ public class Concesionario{
      */
     public String getNombre() {
         return nombre;
+    }
+    /**
+     * Metodo para obtener la contraseña del concesionario
+     * @return Contraseña del concesionario
+     */
+    public int getPassword() {
+        return password;
+    }
+    /**
+     * Metodo para saber si el concesionario esta autenticado o no
+     * @return Booleano sobre si esta autenticado o no
+     */
+    public boolean isAutenticado() {
+        return autenticado;
     }
     /**
      * Metodo para obtener las ganancias netas del concesionario
@@ -81,6 +100,20 @@ public class Concesionario{
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    /**
+     * Metodo para modificar la contraseña del concesionario
+     * @param password Nueva contraseña del concesionario
+     */
+    public void setPassword(int password) {
+        this.password = password;
+    }
+    /**
+     * Metodo para modificar si el concesionario esta autenticado o no
+     * @param autenticado Nuevo booleano si el concesionario esta autenticado o no
+     */
+    public void setAutenticado(boolean autenticado) {
+        this.autenticado = autenticado;
     }
     /**
      * Metodo para modificar las ganancias netas del concesionario
@@ -142,10 +175,12 @@ public class Concesionario{
      */
     public boolean verificarSede(String direccion, Ciudad ciudad){
         boolean esRepetido = false;
-        for (Sede sede : listaSedes) {
-            if (sede.getDireccion().equals(direccion) && sede.getCiudad().equals(ciudad)) {
-                esRepetido = true;
-                break;
+        if (isAutenticado()) {
+            for (Sede sede : listaSedes) {
+                if (sede.getDireccion().equals(direccion) && sede.getCiudad().equals(ciudad)) {
+                    esRepetido = true;
+                    break;
+                }
             }
         }
         return esRepetido;
@@ -158,12 +193,14 @@ public class Concesionario{
      */
     public boolean actualizarSede(int codigo, Sede actualizado) {
         boolean accion = false;
-        for (Sede sede : listaSedes) {
-            if (sede.getCodigo() == codigo) {
-                sede.setDireccion(actualizado.getDireccion());
-                sede.setCiudad(actualizado.getCiudad());
-                accion = true;
-                break;
+        if (isAutenticado()) {
+            for (Sede sede : listaSedes) {
+                if (sede.getCodigo() == codigo) {
+                    sede.setDireccion(actualizado.getDireccion());
+                    sede.setCiudad(actualizado.getCiudad());
+                    accion = true;
+                    break;
+                }
             }
         }
         return accion;
@@ -175,23 +212,50 @@ public class Concesionario{
      */
     public boolean eliminarSede(int codigo){
         boolean accion = false;
-        for (Sede sede : listaSedes) {
-            if (sede.getCodigo() == codigo) {
-                if (verificarSedeVacia(sede)) {
-                    listaSedes.remove(sede);
-                    accion = true;
-                    break;
-                } 
+        if (isAutenticado()) {
+            for (Sede sede : listaSedes) {
+                if (sede.getCodigo() == codigo) {
+                    if (verificarSedeVacia(sede)) {
+                        listaSedes.remove(sede);
+                        accion = true;
+                        break;
+                    } 
+                }
             }
         }
         return accion;
     }
-
+    /**
+     * Metodo para verificar si una sede esta totalmente vacia
+     * @param sede Sede a verificar
+     * @return Booleano sobre si la sede esta totalmente vacio o no
+     */
     public boolean verificarSedeVacia(Sede sede){
         boolean accion = false;
         if (sede.getListaVehiculos().isEmpty() && sede.getListaEmpleados().isEmpty() && sede.getListaVentas().isEmpty() && sede.getListaAlquileres().isEmpty() && sede.getListaCompras().isEmpty()) {
             accion = true;
         }
         return accion;
+    }
+
+    /**
+     * Metodo para autenticar la contraseña de el concesionario
+     * @param passwordDada Contraseña a verificar
+     * @return Booleano sobre si la autenticacion fue lograda o no
+     */
+    public boolean autenticar(int passwordDada){
+        if (passwordDada == password) {
+            setAutenticado(true);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    /**
+     * Metodo para cerrar la sesion del concesionario
+     */
+    public void cerrarSesion(){
+        setAutenticado(false);
     }
 }
