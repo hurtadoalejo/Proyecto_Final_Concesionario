@@ -273,6 +273,11 @@ public class Empleado extends Persona{
         return accion;
     }
     
+    /**
+     * Metodo para agregar un vehiculo a la lista de vehiculos del concesionario y a la lista de vehiculos de la sede del empleado
+     * @param vehiculo 
+     * @return
+     */
     public boolean agregarVehiculo(Vehiculo vehiculo){
         boolean accion = false;
         if (isAutenticado() && !verificarVehiculo(vehiculo.getPlaca()) && vehiculo.getSede().equals(sede)) {
@@ -295,11 +300,12 @@ public class Empleado extends Persona{
     }
     public boolean actualizarVehiculo(String placa, Vehiculo vehiculoDado){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && vehiculoDado.getSede().equals(sede)) {
             for (int a = 0; a < concesionario.getListaVehiculos().size(); a++) {
                 if (concesionario.getListaVehiculos().get(a).getPlaca().equals(placa)) {
                     accion = true;
                     concesionario.getListaVehiculos().set(a, vehiculoDado);
+                    sede.getListaVehiculos().set(a, vehiculoDado);
                     break;
                 }
             }
@@ -310,7 +316,7 @@ public class Empleado extends Persona{
         boolean accion = false;
         if (isAutenticado()) {
             for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
-                if (vehiculo.getPlaca().equals(placa)) {
+                if (vehiculo.getPlaca().equals(placa) && vehiculo.getSede().equals(sede)) {
                     accion = true;
                     concesionario.getListaVehiculos().remove(vehiculo);
                     sede.getListaVehiculos().remove(vehiculo);

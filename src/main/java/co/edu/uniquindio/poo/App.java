@@ -7,7 +7,9 @@ public class App {
         Sede sede2 = new Sede(2, "Nalgas de mi novia", Ciudad.QUIMBAYA);
         Empleado empleado = new Empleado("Alejo", "1092850037", "alejo@gmail.com", 150000, "alejohg", 25024, concesionario, sede);
         Camioneta camioneta = new Camioneta("AHG", "Mazda", Estado_vehiculo.NUEVO, 2020, 5, 120, 200, Tipo_transmision.AUTOMATICA, Tipo_uso.VENTA, 120, 60, 4, 2, 6, 55, false, false, false, false, false, false, false, false, sede);
-        Camioneta camioneta2 = new Camioneta("AHGA", "Mazda", Estado_vehiculo.NUEVO, 2020, 5, 120, 200, Tipo_transmision.AUTOMATICA, Tipo_uso.VENTA, 120, 60, 4, 2, 6, 55, false, false, false, false, false, false, false, false, sede);
+        Camioneta camioneta2 = new Camioneta("AHGA", "Mazda", Estado_vehiculo.NUEVO, 2020, 5, 120, 200, Tipo_transmision.AUTOMATICA, Tipo_uso.VENTA, 120, 60, 4, 2, 6, 55, false, false, false, false, false, false, false, false, sede2);
+        concesionario.getListaVehiculos().add(camioneta2);
+        sede2.getListaVehiculos().add(camioneta2);
         concesionario.getListaEmpleados().add(empleado);
         concesionario.getListaSedes().add(sede);
         concesionario.getListaSedes().add(sede2);
@@ -15,8 +17,14 @@ public class App {
         empleado.autenticar("alejohg", 25024);
         empleado.agregarCliente(cliente);
         empleado.agregarVehiculo(camioneta);
-        empleado.agregarVehiculo(camioneta2);
-        empleado.cerrarSesion();
-        System.out.println(sede.getListaVehiculos().size());
+        empleado.eliminarVehiculo("AHGA");
+        empleado.cerrarSesion(); 
+        for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
+            System.out.println(vehiculo.getPlaca());
+        }
+        System.out.println("ESPACIO");
+        for (Vehiculo vehiculo : sede2.getListaVehiculos()) {
+            System.out.println(vehiculo.getPlaca());
+        }
     }
 }
