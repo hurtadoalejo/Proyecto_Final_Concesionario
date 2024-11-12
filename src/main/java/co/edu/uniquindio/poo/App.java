@@ -8,7 +8,7 @@ public class App {
         Sede sede = new Sede(25, "cRA 6 #11-13", Ciudad.ARMENIA);
         Sede sede2 = new Sede(2, "Nalgas de mi novia", Ciudad.QUIMBAYA);
         Administrador administrador = new Administrador("Alexito", "25024", "alex@gmail.com", 250000, sede, "alex", 555, concesionario, "acaramelao");
-        Administrador administrador2 = new Administrador("Alex", "250246", "alex@gmail.com", 250000, sede2, "alex", 555, concesionario, "tuyo");
+        Administrador administrador2 = new Administrador("Alex", "250246", "alex@gmail.com", 250000, sede, "alex", 555, concesionario, "tuyo");
         Empleado empleado = new Empleado("Alejo", "1092850037", "alejo@gmail.com", 150000, "alejohg", 25024, concesionario, sede, "sol");
         //Empleado empleado2 = new Empleado("Aleja", "25024", "aleja@gmail.com", 600000, "alejahg", 25024, concesionario, sede);
         Camioneta camioneta = new Camioneta("AHG", "Mazda", Estado_vehiculo.NUEVO, 2020, 5, 120, 200, Tipo_transmision.AUTOMATICA, Tipo_uso.ALQUILER, 120, 60, 4, 2, 6, 55, false, false, false, false, false, false, false, false, sede);
@@ -16,12 +16,13 @@ public class App {
         concesionario.autenticar(2911);
         concesionario.agregarSede(sede);
         concesionario.agregarSede(sede2);
-        System.out.println(concesionario.getListaSedes().size());
         concesionario.agregarAdministrador(administrador);
         concesionario.agregarAdministrador(administrador2);
+        concesionario.cerrarSesion();
         administrador.autenticar("alex", 555);
         administrador.agregarEmpleado(empleado);
         administrador.cerrarSesion();
+        System.out.println(sede.getAdministrador().getIdentificacion());
         Cliente cliente = new Cliente("Vero", "2502455", "vero@gmail.com");
         empleado.autenticar("alejohg", 2502);
         empleado.recuperarCredenciales("sol", "alejito", 2502);
@@ -36,7 +37,6 @@ public class App {
         administrador.autenticar("alex", 555);
         administrador.eliminarEmpleado("1092850037");
         administrador.cerrarSesion();
-        concesionario.cerrarSesion();
         System.out.println(sede.getListaEmpleados().size());
         System.out.println("Vehiculos concesionario: ");
         for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {

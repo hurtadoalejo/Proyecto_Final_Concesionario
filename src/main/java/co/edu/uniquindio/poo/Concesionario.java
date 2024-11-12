@@ -292,12 +292,25 @@ public class Concesionario implements IVerificarPersona{
      */
     public boolean agregarAdministrador(Administrador administrador){
         boolean accion = false;
-        if (isAutenticado()) {
+        if (isAutenticado() && verificarSedeLibre(administrador.getSede())) {
             if (!verificarPersona(administrador.getIdentificacion())) {
                 listaAdministradores.add(administrador);
                 administrador.getSede().setAdministrador(administrador);
                 accion = true;
             }
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para verificar si una sede no tienen ningun administrador anclado
+     * @param sede Sede que se buca verificar
+     * @return Booleano sobre si la sede tiene un administrador anclado o no
+     */
+    public boolean verificarSedeLibre(Sede sede){
+        boolean accion = false;
+        if (sede.getAdministrador() == null) {
+            accion = true;
         }
         return accion;
     }
