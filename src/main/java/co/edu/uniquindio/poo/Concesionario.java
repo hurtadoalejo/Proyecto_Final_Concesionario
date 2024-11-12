@@ -161,11 +161,15 @@ public class Concesionario{
     /**
      * Metodo para agregar una sede a la lista de sedes del concesionario
      * @param sede Sede que se busca agregar a la lista de sedes del concesionario
+     * @return Booleano sobre si se pudo agregar o no la sede
      */
-    public void agregarSede(Sede sede){
+    public boolean agregarSede(Sede sede){
+        boolean accion = false;
         if (!verificarSede(sede.getDireccion(), sede.getCiudad())) {
             listaSedes.add(sede);
+            accion = true;
         }
+        return accion;
     }
     /**
      * Metodo para verificar si una direccion y ciudad son iguales al de una sede en la lista de sedes del concesionario
