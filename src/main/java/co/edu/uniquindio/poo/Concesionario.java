@@ -333,7 +333,6 @@ public class Concesionario implements IVerificarPersona{
                     administradorNuevo.getSede().setAdministrador(administradorNuevo);
                 }
                 administrador.setNombre(administradorNuevo.getNombre());
-                administrador.setIdentificacion(administradorNuevo.getIdentificacion());
                 administrador.setCorreo(administradorNuevo.getCorreo());
                 administrador.setSalarioBase(administradorNuevo.getSalarioBase());
                 administrador.setUsuario(administradorNuevo.getUsuario());
