@@ -2,7 +2,7 @@ package co.edu.uniquindio.poo;
 import java.util.List;
 import java.util.LinkedList;
 
-public class Concesionario{
+public class Concesionario implements IVerificarPersona{
     private String nombre;
     private double gananciasNetas;
     private List<Sede> listaSedes;
@@ -313,6 +313,7 @@ public class Concesionario{
      * @param identificacion Identificacion a verificar
      * @return Booleano sobre si existe una persona con esta condicion o no
      */
+    @Override
     public boolean verificarPersona(String identificacion){
         boolean accion = false;
         for (Empleado empleado : listaEmpleados) {
