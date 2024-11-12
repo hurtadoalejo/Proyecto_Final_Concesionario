@@ -199,7 +199,7 @@ public class Concesionario{
         boolean accion = false;
         if (isAutenticado()) {
             for (Sede sede : listaSedes) {
-                if (sede.getCodigo() == codigo) {
+                if (sede.getCodigo() == codigo && actualizado.getCodigo() == codigo) {
                     sede.setDireccion(actualizado.getDireccion());
                     sede.setCiudad(actualizado.getCiudad());
                     accion = true;
