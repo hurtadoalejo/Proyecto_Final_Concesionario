@@ -325,19 +325,20 @@ public class Concesionario implements IVerificarPersona{
         boolean accion = false;
         for (Administrador administrador : listaAdministradores) {
             if (administrador.getIdentificacion().equals(identificacion) && administradorNuevo.getIdentificacion().equals(identificacion) && isAutenticado()){
-                if (administrador.getSede().equals(administradorNuevo.getSede())) {
-                    administrador.getSede().setAdministrador(administradorNuevo);
-                }
-                else{
-                    administrador.getSede().setAdministrador(null);
-                    administradorNuevo.getSede().setAdministrador(administradorNuevo);
-                }
                 administrador.setNombre(administradorNuevo.getNombre());
                 administrador.setCorreo(administradorNuevo.getCorreo());
                 administrador.setSalarioBase(administradorNuevo.getSalarioBase());
                 administrador.setUsuario(administradorNuevo.getUsuario());
                 administrador.setPassword(administradorNuevo.getPassword());
                 administrador.setRespuestaPregunta(administradorNuevo.getRespuestaPregunta());
+                if (administrador.getSede().equals(administradorNuevo.getSede())) {
+                    administrador.getSede().setAdministrador(administradorNuevo);
+                }
+                else{
+                    if (administradorNuevo.getSede().getAdministrador() == null) {
+                        administradorNuevo.getSede().setAdministrador(administrador);
+                    }
+                }
             }
         }
         return accion;
@@ -387,6 +388,21 @@ public class Concesionario implements IVerificarPersona{
             if (administrador.getIdentificacion().equals(identificacion)) {
                 accion = true;
                 return accion;
+            }
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para verificar si el administrador si esta anclado a la sede que tiene asignada
+     * @param administrador Administrador que se busca verificar
+     * @return Booleano sobre si el administrador si esta anclado a la sede que tiene asignada o no
+     */
+    public boolean verificarAdministradorAncladoSede(Administrador administrador){
+        boolean accion = false;
+        if (administrador.getSede().getAdministrador() != null) {
+            if (administrador.getSede().getAdministrador().getIdentificacion().equals(administrador.getIdentificacion())) {
+                accion = true;
             }
         }
         return accion;
