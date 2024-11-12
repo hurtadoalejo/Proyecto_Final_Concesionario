@@ -257,7 +257,7 @@ public class Concesionario implements IVerificarPersona{
      */
     public boolean verificarSedeVacia(Sede sede){
         boolean accion = false;
-        if (sede.getListaVehiculos().isEmpty() && sede.getListaEmpleados().isEmpty() && sede.getListaVentas().isEmpty() && sede.getListaAlquileres().isEmpty() && sede.getListaCompras().isEmpty()) {
+        if (sede.getListaVehiculos().isEmpty() && sede.getListaEmpleados().isEmpty() && sede.getListaVentas().isEmpty() && sede.getListaAlquileres().isEmpty() && sede.getListaCompras().isEmpty() && sede.getAdministrador() == null) {
             accion = true;
         }
         return accion;
@@ -336,9 +336,12 @@ public class Concesionario implements IVerificarPersona{
                 }
                 else{
                     if (administradorNuevo.getSede().getAdministrador() == null) {
-                        administradorNuevo.getSede().setAdministrador(administrador);
+                        administrador.getSede().setAdministrador(null);
+                        administrador.setSede(administradorNuevo.getSede());
+                        administrador.getSede().setAdministrador(administrador);
                     }
                 }
+                accion = true;
             }
         }
         return accion;
