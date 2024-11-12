@@ -393,18 +393,4 @@ public class Concesionario implements IVerificarPersona{
         return accion;
     }
 
-    /**
-     * Metodo para verificar si el administrador si esta anclado a la sede que tiene asignada
-     * @param administrador Administrador que se busca verificar
-     * @return Booleano sobre si el administrador si esta anclado a la sede que tiene asignada o no
-     */
-    public boolean verificarAdministradorAncladoSede(Administrador administrador){
-        boolean accion = false;
-        if (administrador.getSede().getAdministrador() != null) {
-            if (administrador.getSede().getAdministrador().getIdentificacion().equals(administrador.getIdentificacion())) {
-                accion = true;
-            }
-        }
-        return accion;
-    }
 }
