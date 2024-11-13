@@ -22,22 +22,38 @@ public class App {
         administrador.autenticar("alex", 555);
         administrador.agregarEmpleado(empleado);
         administrador.cerrarSesion();
-        System.out.println(sede.getAdministrador().getIdentificacion());
         Cliente cliente = new Cliente("Vero", "2502455", "vero@gmail.com");
         empleado.autenticar("alejohg", 2502);
         empleado.recuperarCredenciales("sol", "alejito", 2502);
         empleado.autenticar("alejito", 2502);
         empleado.agregarCliente(cliente);
         empleado.agregarVehiculo(camioneta);
-        empleado.agregarVehiculo(camioneta2);
-        LocalDate fecha = LocalDate.of(2024, 10, 5);
-        Venta venta = new Venta(2, empleado, cliente, camioneta, 200000, fecha, sede);
-        empleado.agregarVenta(venta);
-        empleado.cerrarSesion(); 
+        LocalDate fecha = LocalDate.of(2024, 10, 25);
+        LocalDate fecha3 = LocalDate.of(2024, 10, 30);
+        LocalDate fecha4 = LocalDate.of(2024, 10, 31);
+        LocalDate fechaEntrega = LocalDate.of(2024, 10, 25);
+        Alquiler alquiler = new Alquiler(4, cliente, camioneta, empleado, fecha, 1000, sede);
+        empleado.agregarAlquiler(alquiler);
+        empleado.entregarAlquiler(4, fechaEntrega);
+        Compra compra = new Compra(2, empleado, cliente, sede, fecha3);
+        Detalle_compra detalle_compra = new Detalle_compra(camioneta2, 250000, compra, true);
+        compra.agregarDetalleCompra(detalle_compra);
+        empleado.agregarCompra(compra);
+        empleado.concretarCompra(2);
+        empleado.cerrarSesion();
+        LocalDate fechaInicio = LocalDate.of(2024, 10, 25);
+        LocalDate fechaFin = LocalDate.of(2024, 10, 25);
+        Reporte reporte = new Reporte(4, fechaInicio, fechaFin, empleado);
+        Reporte reporte2 = new Reporte(3, fecha3, fecha4, empleado);
         administrador.autenticar("alex", 555);
+        administrador.agregarReporte(reporte);
+        administrador.agregarReporte(reporte2);
         administrador.eliminarEmpleado("1092850037");
         administrador.cerrarSesion();
-        System.out.println(sede.getListaEmpleados().size());
+        System.out.println(sede.getListaReportes().size());
+        System.out.println(sede.getListaReportes().get(0).getAlquileresConcretados());
+        System.out.println(sede.getListaReportes().get(0).getComprasConcretadas());
+        System.out.println(sede.getListaReportes().get(0).getVentasConcretadas());
         System.out.println("Vehiculos concesionario: ");
         for (Vehiculo vehiculo : concesionario.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
@@ -46,6 +62,5 @@ public class App {
         for (Vehiculo vehiculo : sede.getListaVehiculos()) {
             System.out.println(vehiculo.getPlaca());
         }
-        System.out.println(concesionario.getListaSedes().size());
     }
 }
