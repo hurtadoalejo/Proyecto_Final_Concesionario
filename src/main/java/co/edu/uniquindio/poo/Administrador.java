@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo;
+package co.edu.uniquindio.poo.model;
 
 import java.time.LocalDate;
 
@@ -265,6 +265,8 @@ public class Administrador extends Persona implements ICredencialAcceso, IVerifi
                     concesionario.getListaEmpleados().remove(empleado);
                     empleado.getSede().getListaEmpleados().remove(empleado);
                     empleado.setEstadoEmpleado(Estado_empleado.NO_ACTIVO);
+                    accion = true;
+                    break;
                 }
             }
         }
