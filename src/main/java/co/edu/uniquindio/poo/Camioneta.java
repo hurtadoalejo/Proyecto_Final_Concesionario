@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo;
+package co.edu.uniquindio.poo.model;
 
 public class Camioneta extends Vehiculo_electrico{
     private int numPasajeros, numPuertas, numBolsasAire;
