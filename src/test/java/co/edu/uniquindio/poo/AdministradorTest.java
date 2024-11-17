@@ -183,7 +183,7 @@ public class AdministradorTest {
      * Metodo para testear que se elimine un reporte correctamente
      */
     @Test
-    public void test(){
+    public void testEliminarReporte(){
         Concesionario concesionario = new Concesionario("Concesionario", 2524);
         Sede sede = new Sede(25, "Cra 6 #20-24", Ciudad.QUIMBAYA);
         concesionario.getListaSedes().add(sede);
@@ -196,9 +196,7 @@ public class AdministradorTest {
         administrador.autenticar("alejo", 2911);
         Reporte reporte = new Reporte(2, LocalDate.of(2024, 11, 20), LocalDate.of(2024, 11, 24), empleado);
         administrador.agregarReporte(reporte);
-        List<Reporte> listaReportesEsperada = new LinkedList<>();
         administrador.eliminarReporte(2);
-        assertEquals(listaReportesEsperada, sede.getListaReportes());
+        assertTrue(sede.getListaReportes().isEmpty());
     }
-
 }
