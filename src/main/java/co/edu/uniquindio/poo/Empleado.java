@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo;
+package co.edu.uniquindio.poo.model;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -572,17 +572,9 @@ public class Empleado extends Persona implements ICredencialAcceso, IVerificarPe
         if (!verificarCompra(compra.getCodigo()) && isAutenticado() && !compra.isConcretada() && compra.getSede().equals(sede) && verificarCliente(compra.getCliente().getIdentificacion()) && estadoEmpleado.equals(Estado_empleado.ACTIVO)) {
             listaCompras.add(compra);
             sede.getListaCompras().add(compra);
+            accion = true;
         }
         return accion;
-    }
-    /**
-     * Metodo para habilitar todos los vehiculos que se han comprado a un cliente
-     * @param listaDetallesCompra Lista de detalles de una compra efectuada
-     */
-    public void habilitarVehiculosCompra(List<Detalle_compra> listaDetallesCompra){
-        for (Detalle_compra detalle_compra : listaDetallesCompra) {
-            detalle_compra.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
-        }
     }
     /**
      * Metodo para verificar si hay una compra con el mismo codigo que uno dado en la lista de compras de la sede 
@@ -630,7 +622,7 @@ public class Empleado extends Persona implements ICredencialAcceso, IVerificarPe
      */
     public void devolverVehiculos(List<Detalle_compra> listaDetallesCompra){
         for (Detalle_compra detalle_compra : listaDetallesCompra) {
-            if (detalle_compra.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.NO_DISPONIBLE)) {
+            if (detalle_compra.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE)) {
                 sede.getListaVehiculos().remove(detalle_compra.getVehiculo());
                 concesionario.getListaVehiculos().remove(detalle_compra.getVehiculo());
                 sede.aumentarDineroGastado(detalle_compra.getSubtotal()*-1); 
@@ -651,12 +643,30 @@ public class Empleado extends Persona implements ICredencialAcceso, IVerificarPe
                     Vehiculo vehiculo = detalleCompra.getVehiculo();
                     sede.getListaVehiculos().add(vehiculo);
                     concesionario.getListaVehiculos().add(vehiculo);
-                    accion = true;
                 }
-                habilitarVehiculosCompra(compraTemporal.getListaDetallesCompra());
+                accion = true;
                 sede.aumentarDineroGastado(compraTemporal.getTotalCompra());
                 sede.setDineroGanadoNeto(sede.calcularDineroGanadoNeto());
                 break;
+            }
+        }
+        return accion;
+    }
+    /**
+     * Metodo para actualizar una compra de la lista de compras de la sede del empleado
+     * @param codigo Codigo a verificar
+     * @param compraNueva Compra con los datos nuevos
+     * @return Booleano sobre si se pudo actualizar el alquiler o no
+     */
+    public boolean actualizarCompra(int codigo, Compra compraNueva){
+        boolean accion = false;
+        if (isAutenticado() && compraNueva.getSede().equals(sede) && estadoEmpleado.equals(Estado_empleado.ACTIVO)){
+            for (Compra compra : listaCompras) {
+                if (compra.getCodigo() == codigo && compraNueva.getCodigo() == codigo && !compra.isConcretada()) {
+                    accion = true;
+                    compra.setCliente(compraNueva.getCliente());
+                    compra.setFechaCompra(compraNueva.getFechaCompra());
+                }
             }
         }
         return accion;

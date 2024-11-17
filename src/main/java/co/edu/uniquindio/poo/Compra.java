@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo;
+package co.edu.uniquindio.poo.model;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -158,24 +158,55 @@ public class Compra {
         return total;
     }
 
+    /**
+     * Metodo para agregar un detalle de compra a la lista de detalles de compra de la compra
+     * @param detalleCompra Detalle de compra que se busca agregar
+     * @return Booleano sobre si se pudo agregar el detalle de compra o no
+     */
     public boolean agregarDetalleCompra(Detalle_compra detalleCompra){
         boolean accion = false;
         if (verificarDetalleCompra(detalleCompra)) {
             listaDetallesCompra.add(detalleCompra);
-            detalleCompra.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.NO_DISPONIBLE);
             setTotalCompra(calcularTotal());
-        }
-        return accion;
-    }
-
-    public boolean verificarDetalleCompra(Detalle_compra detalleCompra){
-        boolean accion = false;
-        if (detalleCompra.isTecnomecanicaValida() && detalleCompra.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && detalleCompra.getCompra().getCodigo() == codigo && detalleCompra.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && !empleado.verificarVehiculo(detalleCompra.getVehiculo().getPlaca()) && !concretada) {
             accion = true;
         }
         return accion;
     }
 
+    /**
+     * Metodo para verificar si el detalle de compra se puede agregar a la lista de detalles de compra de la compra
+     * @param detalleCompra Detalle de compra a verificar
+     * @return Booleano sobre si se puede agregar el detalle de compra o no
+     */
+    public boolean verificarDetalleCompra(Detalle_compra detalleCompra){
+        boolean accion = false;
+        if (detalleCompra.isTecnomecanicaValida() && detalleCompra.getVehiculo().getTipoUso().equals(Tipo_uso.VENTA) && detalleCompra.getCompra().getCodigo() == codigo && detalleCompra.getVehiculo().getEstadoDisponibilidad().equals(Estado_disponibilidad.DISPONIBLE) && !empleado.verificarVehiculo(detalleCompra.getVehiculo().getPlaca()) && !concretada && !verificarVehiculoEnCompra(detalleCompra.getVehiculo().getPlaca())) {
+            accion = true;
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para verificar si hay algun vehiculo con la misma placa en la lista de detalles de compra de la compra
+     * @param placa Placa a verificar
+     * @return Booleano sobre si existe algun vehiculo con esta condicion o no
+     */
+    public boolean verificarVehiculoEnCompra(String placa){
+        boolean accion = false;
+        for (Detalle_compra detalle_compra : listaDetallesCompra) {
+            if (detalle_compra.getVehiculo().getPlaca().equals(placa)) {
+                accion = true;
+                break;
+            }
+        }
+        return accion;
+    }
+
+    /**
+     * Metodo para eliminar un detalle de compra de la lista de detalles de compra de la compra
+     * @param placa Placa del vehiculo a eliminar
+     * @return Booleano sobre si se pudo eliminar el detalle de compra
+     */
     public boolean eliminarDetalleCompra(String placa){
         boolean accion = false;
         for (Detalle_compra detalle_compra : listaDetallesCompra) {
@@ -183,6 +214,7 @@ public class Compra {
                 detalle_compra.getVehiculo().setEstadoDisponibilidad(Estado_disponibilidad.DISPONIBLE);
                 setTotalCompra(calcularTotal());
                 listaDetallesCompra.remove(detalle_compra);
+                accion = true;
                 break;
             }
         }
