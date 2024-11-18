@@ -595,7 +595,7 @@ public class EmpleadoTest {
      * Metodo para testear que se recuperen las credenciales de un empleado
      */
     @Test
-    public void testRecuperarCredenciales(){
+    public void testRecuperarCredencialesEmpleado(){
         Concesionario concesionario = new Concesionario("Concesionario", 2524);
         Sede sede = new Sede(24, "Cra 6 #30-24", Ciudad.ARMENIA);
         Administrador administrador = new Administrador("Alejandro", "1092850037", "alejo@gmail.com", 350000, sede, "alejo", 2911, concesionario, "acaramelao");
