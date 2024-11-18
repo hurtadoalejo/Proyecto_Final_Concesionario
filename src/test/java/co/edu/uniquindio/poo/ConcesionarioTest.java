@@ -263,6 +263,6 @@ public class ConcesionarioTest {
         concesionario.autenticar(2524);
         concesionario.agregarSede(sede);
         concesionario.agregarAdministrador(administrador);
-        assertEquals(empleado, concesionario.obtenerEmpleadoPorCedula("25024"));
+        assertEquals(empleado, concesionario.obtenerUsuarioEmpleado("vero", 2911));
     }
 }
